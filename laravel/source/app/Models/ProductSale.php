@@ -10,5 +10,6 @@ class ProductSale extends Model
     use HasFactory;
     protected $table = 'productsales';
     protected $primaryKey = ['productid', 'saleid'];
+    public $incrementing = false;
     protected $fillable = ['deleted'];
 }

@@ -66,4 +66,4 @@ Route::apiResource('/salepromotion', SalePromotionController::class);
 Route::apiResource('/size', SizeController::class);
 
 //Routes variantion
-Route::apiResource('/variantion', VariantionController::class);
+Route::apiResource('/variation', VariantionController::class);

@@ -26,69 +26,149 @@ class SizeController extends Controller
         return Size::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Add Size
+     * @OA\Post(
+     *      path="/api/size",
+     *      tags={"Size"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="variantId",
+     *           type="int",
+     *         ),
+     *         @OA\Property(
+     *           property="size",
+     *           type="int",
+     *         ),
+     *      @OA\Property(
+     *           property="quantity",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        return Size::create($request->all());
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Get Size
+     * @OA\Get(
+     *      path="/api/size/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Size"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function show($id)
+    public function show(Size $size)
     {
-        //
+        return $size;
     }
 
+
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update Size
+     * @OA\Put(
+     *      path="/api/size/{id}",
+     *      tags={"Size"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="variantId",
+     *           type="int",
+     *         ),
+     *         @OA\Property(
+     *           property="size",
+     *           type="int",
+     *         ),
+     *      @OA\Property(
+     *           property="quantity",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function edit($id)
+    public function update(Request $request, $size)
     {
-        //
+        $size->update($request->all());
+        return $size;
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Delete Size
+     * @OA\Delete(
+     *      path="/api/size/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Size"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function destroy($id)
     {
-        //
+        $size = category::find($id);
+        $size->deleted = 1;
+        $rs = $size->save();
+        if ($rs) {
+            return "200";
+        } else {
+            return "500";
+        }
     }
 }

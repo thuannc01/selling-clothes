@@ -27,68 +27,126 @@ class ColorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Add Category
+     * @OA\Post(
+     *      path="/api/color",
+     *      tags={"Color"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="name",
+     *           type="string",
+     *         )
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        return Color::create($request->all());
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Get Color
+     * @OA\Get(
+     *      path="/api/color/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Color"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function show($id)
+    public function show(Color $color)
     {
-        //
+        return $color;
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update Category
+     * @OA\Put(
+     *      path="/api/color/{id}",
+     *      tags={"Color"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="id",
+     *           type="int",
+     *         ),
+     *          @OA\Property(
+     *           property="name",
+     *           type="string",
+     *         )
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function edit($id)
+    public function update(Request $request, $color)
     {
-        //
+        $color->update($request->all());
+        return $color;
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Delete Color
+     * @OA\Delete(
+     *      path="/api/color/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Color"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function destroy($id)
     {
-        //
+        $color = Color::find($id);
+        $color->deleted = 1;
+        $rs = $color->save();
+        if ($rs) {
+            return "200";
+        } else {
+            return "500";
+        }
     }
 }

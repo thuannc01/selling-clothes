@@ -10,5 +10,6 @@ class ProductCollection extends Model
     use HasFactory;
     protected $table = 'productcollection';
     protected $primaryKey = ['productId', 'collectionId'];
+    public $incrementing = false;
     protected $fillable = ['deleted'];
 }

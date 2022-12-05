@@ -26,69 +26,140 @@ class ProductCollectionController extends Controller
         return ProductCollection::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Add ProductCollection
+     * @OA\Post(
+     *      path="/api/productcollection",
+     *      tags={"ProductCollection"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="productId",
+     *           type="int",
+     *         ),
+     *         @OA\Property(
+     *           property="collectionId",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        return ProductCollection::create($request->all());
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Get ProductCollection
+     * @OA\Get(
+     *      path="/api/productcollection/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"ProductCollection"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function show($id)
+    public function show(ProductCollection $productCollection)
     {
-        //
+        return $productCollection;
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update ProductCollection
+     * @OA\Put(
+     *      path="/api/productcollection/{id}",
+     *      tags={"ProductCollection"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="productId",
+     *           type="int",
+     *         ),
+     *         @OA\Property(
+     *           property="collectionId",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function edit($id)
+    public function update(Request $request, $productCollection)
     {
-        //
+        $productCollection->update($request->all());
+        return $productCollection;
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Delete ProductCollection
+     * @OA\Delete(
+     *      path="/api/productcollection/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"ProductCollection"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function destroy($id)
     {
-        //
+        $productCollection = category::find($id);
+        $productCollection->deleted = 1;
+        $rs = $productCollection->save();
+        if ($rs) {
+            return "200";
+        } else {
+            return "500";
+        }
     }
 }
