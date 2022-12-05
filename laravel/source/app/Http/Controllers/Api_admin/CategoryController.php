@@ -14,11 +14,6 @@ use OpenApi\Annotations as OA;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /**
      * Get All Category
      * @OA\Get(
      *      path="/api/category",
@@ -38,47 +33,212 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Tìm kiếm danh mục theo tên
+     * @OA\Get(
+     *      path="/api/searchCategory/{name}",
+     *      @OA\Parameter(
+     *          name="name",
+     *          in="path",
+     *          required=false,
+     *          description="Tìm kiếm danh mục theo tên",
+     *          @OA\Schema(
+     *              type="string"
+     *          ),
+     *     ),
+     *      tags={"Category"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
+     */
+    public function getAllDanhMuc($name)
+    {
+        return category::where('name', 'like', '%' . $name . '%')->get();
+    }
+
+    /**
+     * Add Category
+     * @OA\Post(
+     *      path="/api/category",
+     *      tags={"Category"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="name",
+     *           type="string",
+     *         ),
+     *      @OA\Property(
+     *           property="visible",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="text",
+     *           type="string",
+     *         ),
+     *       @OA\Property(
+     *           property="img",
+     *           type="string",
+     *         ),
+     *       @OA\Property(
+     *           property="parentsId",
+     *           type="integer",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        return category::create($request->all());
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Get Category
+     * @OA\Get(
+     *      path="/api/category/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          description="The event ID specific to this event",
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Category"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function show($id)
+    public function show(category $category)
     {
-        //
+        return $category;
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update Category
+     * @OA\Put(
+     *      path="/api/category",
+     *      tags={"Category"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="id",
+     *           type="string",
+     *         ),
+     *         @OA\Property(
+     *           property="name",
+     *           type="string",
+     *         ),
+     *      @OA\Property(
+     *           property="visible",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="text",
+     *           type="string",
+     *         ),
+     *       @OA\Property(
+     *           property="img",
+     *           type="string",
+     *         ),
+     *       @OA\Property(
+     *           property="parentsId",
+     *           type="integer",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, category $category)
     {
-        //
+        return $category->update($request->all());
+        return $category;
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Get Category
+     * @OA\Delete(
+     *      path="/api/category/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          description="The event ID specific to this event",
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Category"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function destroy($id)
     {
-        //
+        // $category->delete();
+        $category = category::find($id);
+        $category->deleted = 1;
+        $rs = $category->save();
+        if ($rs) {
+            return "200";
+        } else {
+            return "500";
+        }
+    }
+
+    public function visible($id)
+    {
+        $category = category::find($id);
+        $visible = 0;
+        if ($category->visible == 0) {
+            $visible = 1;
+        }
+        $category->visible = $visible;
+        $rs = $category->save();
+        if ($rs) {
+            return "200";
+        } else {
+            return "500";
+        }
     }
 }

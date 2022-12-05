@@ -17,6 +17,367 @@
                         "description": "Successful operation"
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Update Category",
+                "operationId": "339707a75c522c2bbfa5c43c4542ce19",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "visible": {
+                                        "type": "integer"
+                                    },
+                                    "text": {
+                                        "type": "string"
+                                    },
+                                    "img": {
+                                        "type": "string"
+                                    },
+                                    "parentsId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Add Category",
+                "operationId": "c9ec0a8cfdaf43141fee305b040272a3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "visible": {
+                                        "type": "integer"
+                                    },
+                                    "text": {
+                                        "type": "string"
+                                    },
+                                    "img": {
+                                        "type": "string"
+                                    },
+                                    "parentsId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/searchCategory/{name}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Tìm kiếm danh mục theo tên",
+                "operationId": "0851f423ac506cc8fcbd99f4b13b0b52",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Tìm kiếm danh mục theo tên",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/category/{id}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get Category",
+                "operationId": "f0c3183fe0c45019dcd75f9529660bf6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The event ID specific to this event",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get Category",
+                "operationId": "d39845ee81a52b82283e3bdebaecec07",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The event ID specific to this event",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/collection": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "summary": "Get All Collection",
+                "operationId": "eb12869cbb35bb1ff8c9c4ba254f6365",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/color": {
+            "get": {
+                "tags": [
+                    "Color"
+                ],
+                "summary": "Get All Color",
+                "operationId": "c5c78438dd88d26150442c9b275e0356",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/detailreceipt": {
+            "get": {
+                "tags": [
+                    "DetailReceipt"
+                ],
+                "summary": "Get All DetailReceipt",
+                "operationId": "b6987cde987abf80f9054a996b9bde85",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/image": {
+            "get": {
+                "tags": [
+                    "Image"
+                ],
+                "summary": "Get All Image",
+                "operationId": "a9ebfd028263c21d5828dc0b18579234",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/productcollection": {
+            "get": {
+                "tags": [
+                    "ProductCollection"
+                ],
+                "summary": "Get All ProductCollection",
+                "operationId": "12513af85c21b4dd765f2885c6d7c2b9",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/product": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get All Product",
+                "operationId": "abaab995052fab833e97e8aedd43b4c4",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/product/{id}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get Product",
+                "operationId": "0da5a3cf49f07dcc72e81fd17a533b17",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete Product",
+                "operationId": "5384430690c4195dc00a9595356d9056",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/productsale": {
+            "get": {
+                "tags": [
+                    "ProductSale"
+                ],
+                "summary": "Get All ProductSale",
+                "operationId": "e13d73239ccb90b63a1c0612ffb3c850",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/receipt": {
+            "get": {
+                "tags": [
+                    "Receipt"
+                ],
+                "summary": "Get All Receipt",
+                "operationId": "7a58e266cdd0ac1bcc799958c4d03c51",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/salePromotion": {
+            "get": {
+                "tags": [
+                    "SalePromotion"
+                ],
+                "summary": "Get All SalePromotion",
+                "operationId": "f0a7e74ca8e59270f2e936897d6d199a",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/size": {
+            "get": {
+                "tags": [
+                    "Size"
+                ],
+                "summary": "Get All Size",
+                "operationId": "b16f635ab6feb58eddbb871f3872e6a0",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/variation": {
+            "get": {
+                "tags": [
+                    "Variation"
+                ],
+                "summary": "Get All Variation",
+                "operationId": "f434383864b7190beb8c713b624ce3bd",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
             }
         }
     }
