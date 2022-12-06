@@ -15,7 +15,6 @@ use App\Http\Controllers\Api_admin\SalePromotionController;
 use App\Http\Controllers\Api_admin\SizeController;
 use App\Http\Controllers\Api_admin\VariantionController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -67,3 +66,7 @@ Route::apiResource('/size', SizeController::class);
 
 //Routes variantion
 Route::apiResource('/variation', VariantionController::class);
+
+
+// test product repository pattern
+Route::apiResource('product_test', 'App\Http\Controllers\ProductController')->only(['index']);
