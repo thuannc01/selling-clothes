@@ -31,6 +31,8 @@ class ProductRepository implements ProductRepositoryInterface
 	 * @return mixed
 	 */
 	public function product_filter($cateId, $start, $colors = array(), $sizes = array(), $sort, $price = array(), $limit) {
+		
+		// 
 		if($sort == "desc"){$sort_param = "- price";}
 		else {$sort_param = "price";}
 
@@ -111,16 +113,17 @@ class ProductRepository implements ProductRepositoryInterface
 			." LIMIT ". $limit .") h ON h.productId = p.id \n"
 		." GROUP BY p.id , name , price , discount , salePrice \n"
 		." ORDER BY - h.qty";
-
-		// $query1 = "select p.id, p.name, price, sum(s.quantity) as qty, p.img AS img_url, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice "
-		// 	."FROM product p JOIN variation v ON p.id = v.productId JOIN size s on v.id = s.variantId LEFT JOIN productsales ps ON p.id = ps.productid LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id LEFT JOIN salespromotion sp ON ps.salesid = sp.id AND CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd JOIN category cate ON (p.categoryId = cate.id AND  cate.parentsId = 0) OR p.categoryId = 0 JOIN (SELECT productId, SUM(quantity) qty "
-		// 	."FROM detailreceipt dr JOIN receipt rc ON rc.id = dr.receiptId AND rc.timeOrder >= DATE_SUB(NOW(), INTERVAL 7 DAY) GROUP BY productId ORDER BY - SUM(quantity) LIMIT 8) h ON h.productId = p.id "
-		// 	."GROUP BY p.id , name , price , discount , salePrice "
-		// 	."ORDER BY - h.qty";
-
-		// $query3 = "select p.id, p.name, price, sum(s.quantity) as qty, p.img AS img_url, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice FROM product p JOIN variation v ON p.id = v.productId JOIN size s on v.id = s.variantId LEFT JOIN productsales ps ON p.id = ps.productid LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id LEFT JOIN salespromotion sp ON ps.salesid = sp.id AND CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd JOIN category cate ON (p.categoryId = cate.id AND  cate.parentsId = 0) OR p.categoryId = 0 JOIN (SELECT productId, SUM(quantity) qty FROM detailreceipt dr JOIN receipt rc ON rc.id = dr.receiptId AND rc.timeOrder >= DATE_SUB(NOW(), INTERVAL 7 DAY) GROUP BY productId ORDER BY - SUM(quantity) LIMIT 8) h ON h.productId = p.id GROUP BY p.id , name , price , discount , salePrice ORDER BY - h.qty";
 		
-		return DB::raw($query);
+		return DB::select(DB::raw($query));
 	}
 	
+	public function get_new_product($limit, $cateId)
+	{
+		$query = "select p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice "
+		." FROM product p JOIN variation v ON p.id = v.productId JOIN size s on v.id = s.variantId LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id LEFT JOIN productsales ps ON p.id = ps.productid LEFT JOIN salespromotion sp ON ps.salesid = sp.id AND CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd JOIN category cate ON p.categoryId = cate.id AND (cate.parentsId = ".$cateId." OR p.categoryId = ". $cateId.")"
+		." GROUP BY p.id , name , price , discount , salePrice"
+		." ORDER BY -p.id LIMIT " .$limit;
+
+		return DB::select(DB::raw($query));	
+	}
 }
