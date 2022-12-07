@@ -1613,7 +1613,7 @@
                 "tags": [
                     "Product Client"
                 ],
-                "summary": "Get Product By Category",
+                "summary": "Get the product by filtering",
                 "operationId": "1d3d2c6d7ea355a0e51d74c71434e09a",
                 "requestBody": {
                     "required": false,

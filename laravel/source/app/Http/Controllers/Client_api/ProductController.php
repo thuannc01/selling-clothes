@@ -41,7 +41,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Get Product By Category
+     * Get the product by filtering
      * @OA\Post(
      *      path="/api/products/filter",
      *      tags={"Product Client"},
@@ -183,13 +183,23 @@ class ProductController extends Controller
 
     public function get_new_product(Request $request)
     {
-        
-        $products = $this->productRepository->get_new_product($request->limit, $request->cateId);
-        
-        return response(
-            [
-                'data'=>$products
-            ]
-        );
+
+        try{
+            if($request->limit == "," || $request->cateId == ","){
+                $request->limit = 10;
+                $request->cateId = 0;
+            }
+            $products = $this->productRepository->get_new_product($request->limit, $request->cateId);
+            return response(
+                [
+                    'data'=>$products
+                ]
+            );
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        } 
     }
 }
