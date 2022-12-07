@@ -9,6 +9,8 @@ interface ProductRepositoryInterface
 {
    public function all();
 
-   
-   public function product_filter($cateId, $start, $colors, $sizes, $sort, $price, $limit);
+   public function getProductByCategoryId($cateId);   
+   public function product_filter($cateId, $start, $colors = array(), $sizes = array(), $sort, $price = array(), $limit);
+
+   public function get_weekly_best_product($limit, $cateId);
 }
