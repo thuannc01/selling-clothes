@@ -68,5 +68,7 @@ Route::apiResource('/size', SizeController::class);
 Route::apiResource('/variation', VariantionController::class);
 
 
-// test product repository pattern
-Route::apiResource('product_test', 'App\Http\Controllers\ProductController')->only(['index']);
+// product client repository pattern
+Route::get('/products', 'App\Http\Controllers\Client_api\ProductController@index');
+Route::post('/products/filter', 'App\Http\Controllers\Client_api\ProductController@product_filter');
+Route::get('/products/weekly_best/{limit?}/{cateId?}', 'App\Http\Controllers\Client_api\ProductController@get_weekly_best_product');

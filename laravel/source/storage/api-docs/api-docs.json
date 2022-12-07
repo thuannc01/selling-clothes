@@ -1593,6 +1593,99 @@
                     }
                 }
             }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get All Product Client",
+                "operationId": "d8ded4e3d2798b048cb2f8a6aa16866c",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/filter": {
+            "post": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get Product By Category",
+                "operationId": "1d3d2c6d7ea355a0e51d74c71434e09a",
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "cateId": {
+                                        "type": "string"
+                                    },
+                                    " start": {
+                                        "type": "integer"
+                                    },
+                                    "colors": {
+                                        "type": "list"
+                                    },
+                                    " sizes": {
+                                        "type": "list"
+                                    },
+                                    "sort": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "list"
+                                    },
+                                    "limit": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/weekly_best/{limit}/{cateId}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get Weekly Best Products",
+                "operationId": "d31782ed4d12aa68c6f027b7f0addecc",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
         }
     }
 }
