@@ -1655,13 +1655,13 @@
                 }
             }
         },
-        "/api/products/weekly_best/{limit}/{cateId}": {
+        "/api/products/weekly_best?limit={limit}&cateId={cateId}": {
             "get": {
                 "tags": [
                     "Product Client"
                 ],
                 "summary": "Get Weekly Best Products",
-                "operationId": "d31782ed4d12aa68c6f027b7f0addecc",
+                "operationId": "3d80a4ba8eb24b7032ef03ea5008c85f",
                 "parameters": [
                     {
                         "name": "limit",
@@ -1677,6 +1677,38 @@
                         "required": false,
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/new_products?limit={limit}&cateId={cateId}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get new products",
+                "operationId": "ac0406995b33caed9c47f11016b64340",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
                         }
                     }
                 ],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client_api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use TheSeer\Tokenizer\Exception;
 
 class ProductController extends Controller
 {
@@ -103,7 +104,7 @@ class ProductController extends Controller
     /**
      * Get Weekly Best Products
      * @OA\Get(
-     *      path="/api/products/weekly_best/{limit}/{cateId}",
+     *      path="/api/products/weekly_best?limit={limit}&cateId={cateId}",
      * @OA\Parameter(
      *          name="limit",
      *          in="path",
@@ -129,9 +130,62 @@ class ProductController extends Controller
      *     ),
      * )
      */
-    public function get_weekly_best_product($limit = 8, $cateId = 0)
+    public function get_weekly_best_product(Request $request)
     {
-        $products = $this->productRepository->get_weekly_best_product($limit,  $cateId);
+        try{
+            if($request->limit == "," || $request->cateId == ","){
+                $request->limit = 10;
+                $request->cateId = 0;
+            }
+            $products = $this->productRepository->get_weekly_best_product($request->limit, $request->cateId);
+            return response(
+                [
+                    'data'=>$products
+                ]
+            );
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        }
+    }
+
+/**
+     * Get new products
+     * @OA\Get(
+     *      path="/api/products/new_products?limit={limit}&cateId={cateId}",
+     * @OA\Parameter(
+     *          name="limit",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="cateId",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Product Client"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
+     */
+
+    public function get_new_product(Request $request)
+    {
+        
+        $products = $this->productRepository->get_new_product($request->limit, $request->cateId);
+        
         return response(
             [
                 'data'=>$products

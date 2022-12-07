@@ -13,4 +13,6 @@ interface ProductRepositoryInterface
    public function product_filter($cateId, $start, $colors = array(), $sizes = array(), $sort, $price = array(), $limit);
 
    public function get_weekly_best_product($limit, $cateId);
+
+   public function get_new_product($limit, $cateId);
 }
