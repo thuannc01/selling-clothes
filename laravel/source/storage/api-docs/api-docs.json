@@ -1608,53 +1608,6 @@
                 }
             }
         },
-        "/api/products/filter": {
-            "post": {
-                "tags": [
-                    "Product Client"
-                ],
-                "summary": "Get the product by filtering",
-                "operationId": "1d3d2c6d7ea355a0e51d74c71434e09a",
-                "requestBody": {
-                    "required": false,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "cateId": {
-                                        "type": "string"
-                                    },
-                                    " start": {
-                                        "type": "integer"
-                                    },
-                                    "colors": {
-                                        "type": "list"
-                                    },
-                                    " sizes": {
-                                        "type": "list"
-                                    },
-                                    "sort": {
-                                        "type": "string"
-                                    },
-                                    "price": {
-                                        "type": "list"
-                                    },
-                                    "limit": {
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                }
-            }
-        },
         "/api/products/weekly_best?limit={limit}&cateId={cateId}": {
             "get": {
                 "tags": [
@@ -1705,6 +1658,38 @@
                     },
                     {
                         "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/search?searchStr={searchStr}&limit={limit}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Search for products",
+                "operationId": "ccf9867ab428e829287d5d1c00bbf5d3",
+                "parameters": [
+                    {
+                        "name": "searchStr",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
                         "in": "path",
                         "required": false,
                         "schema": {

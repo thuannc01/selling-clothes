@@ -41,67 +41,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Get the product by filtering
-     * @OA\Post(
-     *      path="/api/products/filter",
-     *      tags={"Product Client"},
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *      ),
-     * @OA\RequestBody(
-     *     required=false,
-     *     @OA\MediaType(
-     *       mediaType="multipart/form-data",
-     *       @OA\Schema(
-     *         @OA\Property(
-     *           property="cateId",
-     *           type="string",
-     *         ),
-     *  	   @OA\Property(
-     *           property=" start",
-     *           type="int",
-     *         ),
-     *       @OA\Property(
-     *           property="colors",
-     *           type="list",
-     *         ),
-     *       @OA\Property(
-     *           property=" sizes",
-     *           type="list",
-     *         ),
-     *       @OA\Property(
-     *           property="sort",
-     *           type="string",
-     *         ),
-     *       @OA\Property(
-     *           property="price",
-     *           type="list",
-     *         ),
-     *       @OA\Property(
-     *           property="limit",
-     *           type="int",
-     *         ),
-     *       ),
-     *     ),
-     *   ),
-     *     @OA\PathItem (
-     *     ),
-     * )
-     */
-    
-    public function product_filter(Request $request)
-    {
-        $products = $this->productRepository->product_filter($request->cateId, $request->start, $request->colors, $request->sizes, $request->sort, $request->price, $request->limit);
-
-        return response(
-            [
-                'data'=> $products
-            ]
-        );
-    }
-
-    /**
      * Get Weekly Best Products
      * @OA\Get(
      *      path="/api/products/weekly_best?limit={limit}&cateId={cateId}",
@@ -151,7 +90,7 @@ class ProductController extends Controller
         }
     }
 
-/**
+    /**
      * Get new products
      * @OA\Get(
      *      path="/api/products/new_products?limit={limit}&cateId={cateId}",
@@ -190,6 +129,52 @@ class ProductController extends Controller
                 $request->cateId = 0;
             }
             $products = $this->productRepository->get_new_product($request->limit, $request->cateId);
+            return response(
+                [
+                    'data'=>$products
+                ]
+            );
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        } 
+    }
+
+    /**
+     * Search for products
+     * @OA\Get(
+     *      path="/api/products/search?searchStr={searchStr}&limit={limit}",
+     * @OA\Parameter(
+     *          name="searchStr",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="string"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="limit",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Product Client"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
+     */
+
+    public function search_products(Request $request){
+        try{
+            $products = $this->productRepository->search_products($request->searchStr, $request->limit);
             return response(
                 [
                     'data'=>$products
