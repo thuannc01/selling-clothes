@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\DB;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -123,6 +124,28 @@ class ProductRepository implements ProductRepositoryInterface
 		." FROM product p JOIN variation v ON p.id = v.productId JOIN size s on v.id = s.variantId LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id LEFT JOIN productsales ps ON p.id = ps.productid LEFT JOIN salespromotion sp ON ps.salesid = sp.id AND CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd JOIN category cate ON p.categoryId = cate.id AND (cate.parentsId = ".$cateId." OR p.categoryId = ". $cateId.")"
 		." GROUP BY p.id , name , price , discount , salePrice"
 		." ORDER BY -p.id LIMIT " .$limit;
+
+		return DB::select(DB::raw($query));	
+	}
+	/**
+	 * @param mixed $searchStr
+	 * @param mixed $limit
+	 * @return mixed
+	 */
+	public function search_products($searchStr, $limit) {
+		$query = "select p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice"
+		." FROM product p JOIN variation v ON p.id = v.productId JOIN size s on v.id = s.variantId LEFT JOIN"
+		." (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id LEFT JOIN"
+		." productsales ps ON p.id = ps.productid LEFT JOIN"
+		." salespromotion sp ON ps.salesid = sp.id"
+		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
+		." WHERE p.name like '%". $searchStr ."%'"
+		." GROUP BY p.id , name , price , discount , salePrice"
+		." ORDER BY -p.id ";
+
+		if($searchStr == ""){
+			$query += " LIMIT "  + (string)$limit;
+		}
 
 		return DB::select(DB::raw($query));	
 	}

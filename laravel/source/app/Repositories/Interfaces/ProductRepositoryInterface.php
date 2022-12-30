@@ -15,4 +15,7 @@ interface ProductRepositoryInterface
    public function get_weekly_best_product($limit, $cateId);
 
    public function get_new_product($limit, $cateId);
+
+   public function search_products($searchStr, $limit);
+   
 }
