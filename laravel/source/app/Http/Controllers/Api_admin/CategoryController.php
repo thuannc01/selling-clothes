@@ -17,34 +17,15 @@ class CategoryController extends Controller
      * Get All Category
      * @OA\Get(
      *      path="/api/category",
-     *      tags={"Category"},
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *      ),
-     *     @OA\PathItem (
-     *     ),
-     * )
-     */
-    public function index()
-    {
-        // dd(category::all());
-        return category::all();
-    }
-
-    /**
-     * Tìm kiếm danh mục theo tên
-     * @OA\Get(
-     *      path="/api/searchCategory/{name}",
      *      @OA\Parameter(
-     *          name="name",
-     *          in="path",
+     *          name="keyword",
+     *          in="query",
      *          required=false,
-     *          description="Tìm kiếm danh mục theo tên",
+     *          description="",
      *          @OA\Schema(
      *              type="string"
      *          ),
-     *     ),
+     *      ),
      *      tags={"Category"},
      *      @OA\Response(
      *          response=200,
@@ -54,9 +35,9 @@ class CategoryController extends Controller
      *     ),
      * )
      */
-    public function getAllDanhMuc($name)
-    {
-        return category::where('name', 'like', '%' . $name . '%')->get();
+    public function index(Request $request)
+    {        
+        return  category::where('name', 'like', '%' . trim($request->keyword) . '%')->get();;
     }
 
     /**

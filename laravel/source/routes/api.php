@@ -33,7 +33,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Route category
 Route::apiResource('/category', CategoryController::class);
-Route::get('/searchCategory/{name}', [CategoryController::class, 'getAllDanhMuc']);
 
 //Routes collection
 Route::apiResource('/collection', CollectionController::class);
