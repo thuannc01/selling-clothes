@@ -74,3 +74,7 @@ Route::get('/products', 'App\Http\Controllers\Client_api\ProductController@index
 Route::get('/products/weekly_best', 'App\Http\Controllers\Client_api\ProductController@get_weekly_best_product');
 Route::get('/products/new_products', 'App\Http\Controllers\Client_api\ProductController@get_new_product');
 Route::get('/products/search', 'App\Http\Controllers\Client_api\ProductController@search_products');
+
+// category client
+Route::get('/categories', 'App\Http\Controllers\Client_api\CategoryController@get_category');
+Route::get('/categories/detail', 'App\Http\Controllers\Client_api\CategoryController@get_category_detail');

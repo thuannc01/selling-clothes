@@ -77,11 +77,7 @@ class ProductController extends Controller
                 $request->cateId = 0;
             }
             $products = $this->productRepository->get_weekly_best_product($request->limit, $request->cateId);
-            return response(
-                [
-                    'data'=>$products
-                ]
-            );
+            return response($products);
         }
         catch(Exception $e){
             return response([
@@ -129,11 +125,7 @@ class ProductController extends Controller
                 $request->cateId = 0;
             }
             $products = $this->productRepository->get_new_product($request->limit, $request->cateId);
-            return response(
-                [
-                    'data'=>$products
-                ]
-            );
+            return response($products);
         }
         catch(Exception $e){
             return response([
@@ -175,11 +167,7 @@ class ProductController extends Controller
     public function search_products(Request $request){
         try{
             $products = $this->productRepository->search_products($request->searchStr, $request->limit);
-            return response(
-                [
-                    'data'=>$products
-                ]
-            );
+            return response($products);
         }
         catch(Exception $e){
             return response([

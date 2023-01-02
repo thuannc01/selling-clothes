@@ -1594,6 +1594,44 @@
                 }
             }
         },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Category Client"
+                ],
+                "summary": "Get Category",
+                "operationId": "7a744f8ab3b9a5aa6148006f060d5abd",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/categories/detail?cateId={cateId}": {
+            "get": {
+                "tags": [
+                    "Category Client"
+                ],
+                "summary": "Get Category detail",
+                "operationId": "4874cdf46b9ef2b3fecfdd848f8cf03e",
+                "parameters": [
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/products": {
             "get": {
                 "tags": [
