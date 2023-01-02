@@ -141,7 +141,7 @@ class ProductRepository implements ProductRepositoryInterface
 		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
 		." WHERE p.name like '%". $searchStr ."%'"
 		." GROUP BY p.id , name , price , discount , salePrice"
-		." ORDER BY -p.id ";
+		." ORDER BY -p.id";
 
 		if($searchStr == ""){
 			$query += " LIMIT "  + (string)$limit;
