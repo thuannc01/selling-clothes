@@ -1632,6 +1632,38 @@
                 }
             }
         },
+        "/api/collections?collectionId={collectionId}&start={start}": {
+            "get": {
+                "tags": [
+                    "Collection Client"
+                ],
+                "summary": "Get Collection",
+                "operationId": "471f2dc4f40c0c8fb7c142a3fadf3fe6",
+                "parameters": [
+                    {
+                        "name": "collectionId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/products": {
             "get": {
                 "tags": [
@@ -1728,6 +1760,52 @@
                     },
                     {
                         "name": "limit",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/max-price": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get max price",
+                "operationId": "a7f5a1324c3294af9f92bc386b783b7d",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/productsCollection?collectionId={collectionId}&start={start}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get product collection ",
+                "operationId": "723a3d4279a68dab3d415bbdef7035df",
+                "parameters": [
+                    {
+                        "name": "collectionId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
                         "in": "path",
                         "required": false,
                         "schema": {

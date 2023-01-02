@@ -175,4 +175,70 @@ class ProductController extends Controller
             ]);
         } 
     }
+
+    /**
+     * Get max price
+     * @OA\Get(
+     *      path="/api/max-price",
+     *      tags={"Product Client"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
+     */
+    public function get_max_price(){
+        try{
+            $max_price = $this->productRepository->get_max_price();
+            return response($max_price);
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        } 
+    }
+
+    /**
+     * Get product collection 
+     * @OA\Get(
+     *      path="/api/productsCollection?collectionId={collectionId}&start={start}",
+     * @OA\Parameter(
+     *          name="collectionId",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="start",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Product Client"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
+     */
+    public function get_productsCollection(Request $request){
+        try{
+            $product_collection = $this->productRepository->get_productsCollection($request->collectionId, $request->start);
+            return response($product_collection);
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        } 
+    }
 }

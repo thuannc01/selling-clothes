@@ -4,8 +4,6 @@ namespace App\Repositories;
 
 use App\Models\category;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Repositories\Interfaces\ProductRepositoryInterface;
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\DB;
 
 class CategoryRepository implements CategoryRepositoryInterface
