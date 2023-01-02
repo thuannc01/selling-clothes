@@ -17,5 +17,9 @@ interface ProductRepositoryInterface
    public function get_new_product($limit, $cateId);
 
    public function search_products($searchStr, $limit);
+
+   public function get_max_price();
+
+   public function get_productsCollection($collectionId, $start);
    
 }

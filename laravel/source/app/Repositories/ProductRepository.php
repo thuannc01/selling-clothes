@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\DB;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -148,5 +147,38 @@ class ProductRepository implements ProductRepositoryInterface
 		}
 
 		return DB::select(DB::raw($query));	
+	}
+
+	public function get_max_price(){
+		$query = "select max(price) as maxPrice from product";
+
+		$result = array();
+		$result = DB::select(DB::raw($query));
+
+		return $result[0]->maxPrice;	
+	}
+
+	public function get_productsCollection($collectionId, $start){
+		if ($start != -1){
+			$strLimit = "LIMIT " . $start . ", 8";
+		} else {
+			$strLimit = "";
+		}
+
+		$query = "select  p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice"
+		." FROM productcollection pc JOIN product p on pc.productId = p.id"
+		." JOIN variation v ON p.id = v.productId"
+		." JOIN size s on v.id = s.variantId"
+		." LEFT JOIN"
+		." (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc"
+		." ON vc.productId = p.id"
+		." LEFT JOIN productsales ps ON p.id = ps.productid"
+		." LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
+		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
+		." WHERE pc.collectionId = ".$collectionId
+		." GROUP BY p.id , name , price , discount , salePrice"
+		." ORDER BY -p.id ".$strLimit;
+
+		return (array)DB::select(DB::raw($query));	
 	}
 }

@@ -70,11 +70,15 @@ Route::apiResource('/variation', VariantionController::class);
 
 // product client repository pattern
 Route::get('/products', 'App\Http\Controllers\Client_api\ProductController@index');
-// Route::post('/products/filter', 'App\Http\Controllers\Client_api\ProductController@product_filter');
 Route::get('/products/weekly_best', 'App\Http\Controllers\Client_api\ProductController@get_weekly_best_product');
 Route::get('/products/new_products', 'App\Http\Controllers\Client_api\ProductController@get_new_product');
 Route::get('/products/search', 'App\Http\Controllers\Client_api\ProductController@search_products');
+Route::get('/max-price', 'App\Http\Controllers\Client_api\ProductController@get_max_price');
+Route::get('/productsCollection', 'App\Http\Controllers\Client_api\ProductController@get_productsCollection');
 
 // category client
 Route::get('/categories', 'App\Http\Controllers\Client_api\CategoryController@get_category');
 Route::get('/categories/detail', 'App\Http\Controllers\Client_api\CategoryController@get_category_detail');
+
+// colection client
+Route::get('/collections', 'App\Http\Controllers\Client_api\CollectionController@get_collection');
