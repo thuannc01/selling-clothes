@@ -1730,6 +1730,78 @@
                 }
             }
         },
+        "/api/products/filter?cateId={cateId}&start={start}&colors={colors}&sizes={sizes}&sort={sort}&price={price}&limit={limit}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get product filter",
+                "operationId": "6ec4f7de78d6b0bcc0e5d8beed494034",
+                "parameters": [
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "colors",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "arr"
+                        }
+                    },
+                    {
+                        "name": "sizes",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "arr"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "arr"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/products/detail?productId={productId}": {
             "get": {
                 "tags": [

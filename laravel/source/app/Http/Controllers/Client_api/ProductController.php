@@ -41,6 +41,95 @@ class ProductController extends Controller
     }
 
     /**
+     * Get product filter
+     * @OA\Get(
+     *      path="/api/products/filter?cateId={cateId}&start={start}&colors={colors}&sizes={sizes}&sort={sort}&price={price}&limit={limit}",
+     * @OA\Parameter(
+     *          name="cateId",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="start",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="colors",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="arr"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="sizes",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="arr"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="sort",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="string"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="price",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="arr"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="limit",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Product Client"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
+     */    
+    
+    public function filter_products(Request $request){
+        try{
+            $products = $this->productRepository->product_filter($request->cateId, $request->start, $request->colors, 
+            $request->sizes, $request->sort, $request->price, $request->limit);
+
+            return response(
+                [
+                    'total'=> $products['total'],
+                    'products'=>$products['products']
+                ]
+            );
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        } 
+    }
+
+    /**
      * Get product detail
      * @OA\Get(
      *      path="/api/products/detail?productId={productId}",
