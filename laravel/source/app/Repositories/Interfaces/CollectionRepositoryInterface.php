@@ -8,4 +8,6 @@ use App\Models\Collection;
 interface CollectionRepositoryInterface
 {
     public function get_collection($collectionId, $start);
+
+    public function get_collections();
 }

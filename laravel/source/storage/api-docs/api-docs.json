@@ -1688,6 +1688,20 @@
                 }
             }
         },
+        "/api/menu": {
+            "get": {
+                "tags": [
+                    "Menu Client"
+                ],
+                "summary": "Get menu",
+                "operationId": "24823b5c86e3d73086dd117494606566",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/products": {
             "get": {
                 "tags": [

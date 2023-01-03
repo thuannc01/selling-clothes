@@ -85,5 +85,8 @@ Route::get('/categories/children', 'App\Http\Controllers\Client_api\CategoryCont
 // Routes colection client
 Route::get('/collections', 'App\Http\Controllers\Client_api\CollectionController@get_collection');
 
-// Routes salespromotion
+// Routes salespromotion client
 Route::get('/sales', 'App\Http\Controllers\Client_api\SalesPromotionController@get_sales');
+
+// Routes menu client
+Route::get('/menu', 'App\Http\Controllers\Client_api\MenuController@get_menu');

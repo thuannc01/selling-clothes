@@ -32,4 +32,10 @@ class CollectionRepository implements CollectionRepositoryInterface
 
         return $collection;
     }
+
+    public function get_collections(){
+        $query = "select id, name FROM collection WHERE visible = 1";
+
+        return (array) DB::select(DB::raw($query));
+    }
 }

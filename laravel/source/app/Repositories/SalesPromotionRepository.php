@@ -24,4 +24,12 @@ class SalesPromotionRepository implements SalesPromotionRepositoryInterface
 
         return $result;
 	}
+
+    public function get_sale(){
+        $query = "select id, name"
+        ." FROM salespromotion"
+        ." WHERE visible = 1 AND CURRENT_TIMESTAMP() BETWEEN timeStart AND timeEnd";
+
+        return (array) DB::select(DB::raw($query));
+    }
 }
