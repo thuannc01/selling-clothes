@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client_api;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\CollectionRepository;
 use App\Repositories\Interfaces\CollectionRepositoryInterface;
 use Illuminate\Http\Request;
 use TheSeer\Tokenizer\Exception;
@@ -46,15 +47,14 @@ class CollectionController extends Controller
      * )
      */
     public function get_collection(Request $request){
-        // try{
-        //     $collection = $this->collectionRepository->get_collection($request->collectionId, $request->start);
-        //     return response($collection);
-        // }
-        // catch(Exception $e){
-        //     return response([
-        //         'status'=>'Bad Request'
-        //     ]);
-        // }
-        return response("hello");
+        try{
+            $collection = $this->collectionRepository->get_collection($request->collectionId, $request->start);
+            return response($collection);
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        }
     }
 }
