@@ -1632,6 +1632,30 @@
                 }
             }
         },
+        "/api/categories/children?parentsId={parentsId}": {
+            "get": {
+                "tags": [
+                    "Category Client"
+                ],
+                "summary": "Get subcategory ",
+                "operationId": "c1fb645e8cd92d15f7b11bda3b8bf886",
+                "parameters": [
+                    {
+                        "name": "parentsId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/collections?collectionId={collectionId}&start={start}": {
             "get": {
                 "tags": [
@@ -1846,6 +1870,38 @@
                     },
                     {
                         "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/sales?salesId={salesId}&start={start}": {
+            "get": {
+                "tags": [
+                    "Sales Promotion Client"
+                ],
+                "summary": "Get sales",
+                "operationId": "dc9ea666d577061ef30c65511b760797",
+                "parameters": [
+                    {
+                        "name": "salesId",
                         "in": "path",
                         "required": false,
                         "schema": {

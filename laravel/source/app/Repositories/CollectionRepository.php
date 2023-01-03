@@ -2,12 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\Collection;
 use App\Repositories\Interfaces\CollectionRepositoryInterface;
 use Illuminate\Support\Facades\DB;
-use Ramsey\Collection\CollectionInterface;
-
-use App\Repositories\Interfaces\ProductRepository;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 
 class CollectionRepository implements CollectionRepositoryInterface

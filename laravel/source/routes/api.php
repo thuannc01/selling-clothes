@@ -68,7 +68,7 @@ Route::apiResource('/size', SizeController::class);
 Route::apiResource('/variation', VariantionController::class);
 
 
-// product client repository pattern
+// Routes product client repository pattern
 Route::get('/products', 'App\Http\Controllers\Client_api\ProductController@index');
 Route::get('/products/weekly_best', 'App\Http\Controllers\Client_api\ProductController@get_weekly_best_product');
 Route::get('/products/new_products', 'App\Http\Controllers\Client_api\ProductController@get_new_product');
@@ -77,9 +77,13 @@ Route::get('/max-price', 'App\Http\Controllers\Client_api\ProductController@get_
 Route::get('/productsCollection', 'App\Http\Controllers\Client_api\ProductController@get_productsCollection');
 Route::get('/productsSales', 'App\Http\Controllers\Client_api\ProductController@get_productsSale');
 
-// category client
+// Routes category client
 Route::get('/categories', 'App\Http\Controllers\Client_api\CategoryController@get_category');
 Route::get('/categories/detail', 'App\Http\Controllers\Client_api\CategoryController@get_category_detail');
+Route::get('/categories/children', 'App\Http\Controllers\Client_api\CategoryController@get_subcate');
 
-// colection client
+// Routes colection client
 Route::get('/collections', 'App\Http\Controllers\Client_api\CollectionController@get_collection');
+
+// Routes salespromotion
+Route::get('/sales', 'App\Http\Controllers\Client_api\SalesPromotionController@get_sales');
