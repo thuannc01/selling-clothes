@@ -31,46 +31,37 @@ class ProductRepository implements ProductRepositoryInterface
 	 * @return mixed
 	 */
 	public function product_filter($cateId, $start, $colors = array(), $sizes = array(), $sort, $price = array(), $limit) {
-		
-		// 
-		if($sort == "desc"){$sort_param = "- price";}
-		else {$sort_param = "price";}
+	}
 
-		if ($price[1] != -1) {
-			$max_query = " And price <= " . (string) $price[1];} else {
-			$max_query = "";}
-		
-		if ($price[0] != -1) {
-			$min_query = " And price >= " . (string) $price[0];} else {
-			$min_query = "";}
+	public function get_product($productId){
+		$query = "select p.id, p.name, p.img as img_url, price, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice, description, categoryId"
+		." FROM product p"
+		." JOIN variation v ON v.productId = p.id"
+		." LEFT JOIN productsales ps ON p.id = ps.productid"
+		." LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
+		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
+		." WHERE p.id = " .$productId;
 
-		if (strlen($colors) > 0){
-			$color_query = 'AND v.colorId in ' . ', ' .'';
-		} else {$color_query = "";}
+		$result = DB::select(DB::raw($query));
+		if(isset($result)){
+			$results = (array) $result[0];
+		}
 
-		if (strlen($sizes) > 0){
-			$size_query = "LEFT JOIN size sz ON v.id = sz.variantId AND sz.size in";
-		} else {$size_query = "";}
+		$query = "select v.id, v.thumbnail, c.name, SUM(s.quantity) AS qty"
+		." FROM variation v JOIN color c ON c.id = v.colorId JOIN size s ON s.variantId = v.id"
+		." WHERE v.productId = ". $productId ." GROUP BY v.id";
 
-		$query = 'SELECT p.id, p.name, price, p.img as img_url, sum(s.quantity) as qty, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice'
-		. 'FROM'
-		. 'product p JOIN variation v ON p.id = v.productId '. $color_query + $size_query
-		. 'JOIN size s on v.id = s.variantId'
-		. 'LEFT JOIN'
-		. '(select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc'
-		. 'ON vc.productId = p.id'
-		. 'LEFT JOIN'
-		. 'productsales ps ON p.id = ps.productid'
-		. 'LEFT JOIN salespromotion sp ON ps.salesid = sp.id'
-		. 'AND CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd'
-		. 'JOIN category cate ON p.categoryId = cate.id'
-		. 'AND (cate.parentsId = {} OR p.categoryId = {})'
-		. 'WHERE '. $cateId . $min_query . $max_query
-		. 'GROUP BY p.id , name , price , discount , salePrice'
-		. 'ORDER BY {},-p.id ' .$sort_param;
+		$results['variants'] = DB::select(DB::raw($query));
 
-		$list_product = DB::select($query);
-		return $list_product;
+		foreach ($results['variants'] as $value){
+			$query = "select size, quantity from size where variantId = " . $value->id;
+			$value->sizes = DB::select(DB::raw($query));
+
+			$query = "select id, url from image where variantId = ". $value->id;
+			$value->images = DB::select(DB::raw($query));
+		}
+
+		return $results;
 	}
 
 	public function get_weekly_best_product($limit, $cateId){

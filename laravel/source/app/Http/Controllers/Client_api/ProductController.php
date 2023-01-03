@@ -41,6 +41,39 @@ class ProductController extends Controller
     }
 
     /**
+     * Get product detail
+     * @OA\Get(
+     *      path="/api/products/detail?productId={productId}",
+     * @OA\Parameter(
+     *          name="productId",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Product Client"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
+     */    
+    public function get_product(Request $request){
+        try{
+            $products = $this->productRepository->get_product($request->productId);
+            return response($products);
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        } 
+    }
+
+    /**
      * Get Weekly Best Products
      * @OA\Get(
      *      path="/api/products/weekly_best?limit={limit}&cateId={cateId}",

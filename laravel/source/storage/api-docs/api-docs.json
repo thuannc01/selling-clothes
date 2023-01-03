@@ -1730,6 +1730,30 @@
                 }
             }
         },
+        "/api/products/detail?productId={productId}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get product detail",
+                "operationId": "f82d3a229cbdb20b481bc197bf916025",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/products/weekly_best?limit={limit}&cateId={cateId}": {
             "get": {
                 "tags": [
