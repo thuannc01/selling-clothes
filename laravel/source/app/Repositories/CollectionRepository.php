@@ -13,6 +13,7 @@ use App\Repositories\Interfaces\ProductRepositoryInterface;
 class CollectionRepository implements CollectionRepositoryInterface
 {
     protected $productRepository;
+    
     public function __construct(ProductRepositoryInterface $productRepository){
         $this->productRepository = $productRepository;
     }
@@ -24,8 +25,10 @@ class CollectionRepository implements CollectionRepositoryInterface
 
         $result = DB::select(DB::raw($query));
 
+        $collection = array();
+
         if (isset($result)){
-            $collection = $result[0];
+            $collection = (array)$result[0];
         }
 
         $collection["products"] = $this->productRepository->get_productsCollection($collectionId, $start);
