@@ -38,4 +38,11 @@ class CollectionRepository implements CollectionRepositoryInterface
 
         return (array) DB::select(DB::raw($query));
     }
+
+    public function get_collection_banner(){
+        $query = "select id, name, mobileBanner, pcBanner, 'collection' AS type FROM collection"
+        ." WHERE visible = 1";
+
+        return (array) DB::select(DB::raw($query));
+    }
 }

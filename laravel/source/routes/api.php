@@ -90,3 +90,6 @@ Route::get('/sales', 'App\Http\Controllers\Client_api\SalesPromotionController@g
 
 // Routes menu client
 Route::get('/menu', 'App\Http\Controllers\Client_api\MenuController@get_menu');
+
+// Routes banner client
+Route::get('/banner', 'App\Http\Controllers\Client_api\BannerController@get_banner');

@@ -1594,6 +1594,20 @@
                 }
             }
         },
+        "/api/banner": {
+            "get": {
+                "tags": [
+                    "Banner Client"
+                ],
+                "summary": "Get banner",
+                "operationId": "3505c3cc72210c529e827d0de782c101",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/categories": {
             "get": {
                 "tags": [
