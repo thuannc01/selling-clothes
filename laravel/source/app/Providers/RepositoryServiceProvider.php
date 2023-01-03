@@ -11,6 +11,8 @@ use App\Repositories\Interfaces\CollectionRepositoryInterface;
 use App\Repositories\CollectionRepository;
 use App\Repositories\Interfaces\SalesPromotionRepositoryInterface;
 use App\Repositories\SalesPromotionRepository;
+use App\Repositories\Interfaces\MenuRepositoryInterface;
+use App\Repositories\MenuRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -29,6 +31,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CollectionRepositoryInterface::class, CollectionRepository::class);
 
         $this->app->bind(SalesPromotionRepositoryInterface::class, SalesPromotionRepository::class);
+
+        $this->app->bind(MenuRepositoryInterface::class, MenuRepository::class);
     }
 
     /**
