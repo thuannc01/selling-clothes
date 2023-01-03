@@ -12,6 +12,8 @@ interface ProductRepositoryInterface
    public function getProductByCategoryId($cateId);   
    public function product_filter($cateId, $start, $colors = array(), $sizes = array(), $sort, $price = array(), $limit);
 
+   public function get_product($productId);
+
    public function get_weekly_best_product($limit, $cateId);
 
    public function get_new_product($limit, $cateId);
@@ -25,4 +27,6 @@ interface ProductRepositoryInterface
    public function productsSale($salesId, $size, $cateId, $start);
    
    public function get_productsSale($salesId, $size, $cateId, $start);
+
+
 }
