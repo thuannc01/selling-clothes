@@ -1819,6 +1819,54 @@
                     }
                 }
             }
+        },
+        "/api/productsSales?salesId={salesId}&size={size}&cateId={cateId}&start={start}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get products for sale",
+                "operationId": "0a5daec250c431f1b92e2964d13230bd",
+                "parameters": [
+                    {
+                        "name": "salesId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
         }
     }
 }

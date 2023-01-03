@@ -241,4 +241,61 @@ class ProductController extends Controller
             ]);
         } 
     }
+
+    /**
+     * Get products for sale
+     * @OA\Get(
+     *      path="/api/productsSales?salesId={salesId}&size={size}&cateId={cateId}&start={start}",
+     * @OA\Parameter(
+     *          name="salesId",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="size",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     * * @OA\Parameter(
+     *          name="cateId",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     * @OA\Parameter(
+     *          name="start",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Product Client"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
+     */
+    public function get_productsSale(Request $request){
+        try{
+            $productsSale = $this->productRepository->get_productsSale($request->salesId, $request->size, $request->cateId, $request->start);
+            return response($productsSale);
+        }
+        catch(Exception $e){
+            return response([
+                'status'=>'Bad Request'
+            ]);
+        } 
+    }
 }

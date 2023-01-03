@@ -181,4 +181,50 @@ class ProductRepository implements ProductRepositoryInterface
 
 		return (array)DB::select(DB::raw($query));	
 	}
+
+	public function productsSale($salesId, $size, $cateId, $start){
+		if ($start != -1){
+			$strLimit = " LIMIT " . $start . ", 8";
+		} else {
+			$strLimit = "";
+		}
+
+		if ($size != -1){
+			$strSize = " and size = " . $size;
+		} else {
+			$strSize = "";
+		} 
+
+		if ($cateId != -1){
+			$strCate = "JOIN category cate ON p.categoryId = cate.id
+			AND (cate.parentsId = ". $cateId ." OR p.categoryId = ". $cateId .")";
+		} else {
+			$strCate = "";
+		}
+
+		$query = "select p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color,"
+		." IFNULL(discount, 0) AS discount,"
+		." IFNULL((100 - discount) * (price / 100), 0) AS salePrice"
+		." FROM productsales ps JOIN"
+		." product p on ps.productId = p.id"
+		." JOIN variation v ON p.id = v.productId"
+		." JOIN size s on v.id = s.variantId ".$strSize
+		." LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc"
+		." ON vc.productId = p.id"
+		." LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
+		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd ". $strCate ." WHERE ps.salesid = ".$salesId
+		." GROUP BY p.id , name , price , discount , salePrice"
+		." ORDER BY -p.id ".$strLimit;
+		
+		return (array) DB::select(DB::raw($query));
+	}
+
+	public function get_productsSale($salesId, $size, $cateId, $start){
+		$result = array();
+
+		$result["products"] = $this->productsSale($salesId, $size, $cateId, $start);
+		$result["total"] = count($this->productsSale($salesId, $size, $cateId, -1));
+
+		return $result;
+	}
 }
