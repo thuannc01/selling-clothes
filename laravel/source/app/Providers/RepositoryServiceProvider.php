@@ -13,6 +13,8 @@ use App\Repositories\Interfaces\SalesPromotionRepositoryInterface;
 use App\Repositories\SalesPromotionRepository;
 use App\Repositories\Interfaces\MenuRepositoryInterface;
 use App\Repositories\MenuRepository;
+use App\Repositories\Interfaces\BannerRepositoryInterface;
+use App\Repositories\BannerRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -33,6 +35,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SalesPromotionRepositoryInterface::class, SalesPromotionRepository::class);
 
         $this->app->bind(MenuRepositoryInterface::class, MenuRepository::class);
+
+        $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
     }
 
     /**
