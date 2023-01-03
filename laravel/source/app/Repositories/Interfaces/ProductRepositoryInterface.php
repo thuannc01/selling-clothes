@@ -21,5 +21,8 @@ interface ProductRepositoryInterface
    public function get_max_price();
 
    public function get_productsCollection($collectionId, $start);
+
+   public function productsSale($salesId, $size, $cateId, $start);
    
+   public function get_productsSale($salesId, $size, $cateId, $start);
 }

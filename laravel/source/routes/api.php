@@ -75,6 +75,7 @@ Route::get('/products/new_products', 'App\Http\Controllers\Client_api\ProductCon
 Route::get('/products/search', 'App\Http\Controllers\Client_api\ProductController@search_products');
 Route::get('/max-price', 'App\Http\Controllers\Client_api\ProductController@get_max_price');
 Route::get('/productsCollection', 'App\Http\Controllers\Client_api\ProductController@get_productsCollection');
+Route::get('/productsSales', 'App\Http\Controllers\Client_api\ProductController@get_productsSale');
 
 // category client
 Route::get('/categories', 'App\Http\Controllers\Client_api\CategoryController@get_category');
