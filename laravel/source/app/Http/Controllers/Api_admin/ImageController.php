@@ -41,7 +41,7 @@ class ImageController extends Controller
      *           type="string",
      *         ),
      *      @OA\Property(
-     *           property="varianId",
+     *           property="variantId",
      *           type="int",
      *         ),
      *       @OA\Property(
@@ -109,7 +109,7 @@ class ImageController extends Controller
      *           type="string",
      *         ),
      *      @OA\Property(
-     *           property="varianId",
+     *           property="variantId",
      *           type="int",
      *         ),
      *       @OA\Property(

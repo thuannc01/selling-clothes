@@ -605,7 +605,7 @@
                                     "url": {
                                         "type": "string"
                                     },
-                                    "varianId": {
+                                    "variantId": {
                                         "type": "integer"
                                     },
                                     "deleted": {
@@ -665,7 +665,7 @@
                                     "url": {
                                         "type": "string"
                                     },
-                                    "varianId": {
+                                    "variantId": {
                                         "type": "integer"
                                     },
                                     "deleted": {
