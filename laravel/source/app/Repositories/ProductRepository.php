@@ -186,8 +186,8 @@ class ProductRepository implements ProductRepositoryInterface
 		." GROUP BY p.id , name , price , discount , salePrice"
 		." ORDER BY -p.id";
 
-		if($searchStr == ""){
-			$query += " LIMIT "  + (string)$limit;
+		if((string)$searchStr == ""){
+			$query .= " LIMIT "  . (string)$limit;
 		}
 
 		return DB::select(DB::raw($query));	
