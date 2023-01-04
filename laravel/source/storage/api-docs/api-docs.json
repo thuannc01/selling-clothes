@@ -1779,6 +1779,460 @@
                     }
                 }
             }
+        },
+        "/api/banner": {
+            "get": {
+                "tags": [
+                    "Banner Client"
+                ],
+                "summary": "Get banner",
+                "operationId": "3505c3cc72210c529e827d0de782c101",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Category Client"
+                ],
+                "summary": "Get Category",
+                "operationId": "7a744f8ab3b9a5aa6148006f060d5abd",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/categories/detail?cateId={cateId}": {
+            "get": {
+                "tags": [
+                    "Category Client"
+                ],
+                "summary": "Get Category detail",
+                "operationId": "4874cdf46b9ef2b3fecfdd848f8cf03e",
+                "parameters": [
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/categories/children?parentsId={parentsId}": {
+            "get": {
+                "tags": [
+                    "Category Client"
+                ],
+                "summary": "Get subcategory ",
+                "operationId": "c1fb645e8cd92d15f7b11bda3b8bf886",
+                "parameters": [
+                    {
+                        "name": "parentsId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/collections?collectionId={collectionId}&start={start}": {
+            "get": {
+                "tags": [
+                    "Collection Client"
+                ],
+                "summary": "Get Collection",
+                "operationId": "471f2dc4f40c0c8fb7c142a3fadf3fe6",
+                "parameters": [
+                    {
+                        "name": "collectionId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/menu": {
+            "get": {
+                "tags": [
+                    "Menu Client"
+                ],
+                "summary": "Get menu",
+                "operationId": "24823b5c86e3d73086dd117494606566",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get All Product Client",
+                "operationId": "d8ded4e3d2798b048cb2f8a6aa16866c",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/filter?cateId={cateId}&start={start}&colors={colors}&sizes={sizes}&sort={sort}&price={price}&limit={limit}": {
+            "post": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get product filter",
+                "operationId": "7fe651c00fe2dca8ccc55b44ba832b89",
+                "parameters": [
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "colors",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "arr"
+                        }
+                    },
+                    {
+                        "name": "sizes",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "arr"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "arr"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/detail?productId={productId}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get product detail",
+                "operationId": "f82d3a229cbdb20b481bc197bf916025",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/weekly_best?limit={limit}&cateId={cateId}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get Weekly Best Products",
+                "operationId": "3d80a4ba8eb24b7032ef03ea5008c85f",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/new_products?limit={limit}&cateId={cateId}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get new products",
+                "operationId": "ac0406995b33caed9c47f11016b64340",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/products/search?searchStr={searchStr}&limit={limit}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Search for products",
+                "operationId": "ccf9867ab428e829287d5d1c00bbf5d3",
+                "parameters": [
+                    {
+                        "name": "searchStr",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/max-price": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get max price",
+                "operationId": "a7f5a1324c3294af9f92bc386b783b7d",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/productsCollection?collectionId={collectionId}&start={start}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get product collection ",
+                "operationId": "723a3d4279a68dab3d415bbdef7035df",
+                "parameters": [
+                    {
+                        "name": "collectionId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/productsSales?salesId={salesId}&size={size}&cateId={cateId}&start={start}": {
+            "get": {
+                "tags": [
+                    "Product Client"
+                ],
+                "summary": "Get products for sale",
+                "operationId": "0a5daec250c431f1b92e2964d13230bd",
+                "parameters": [
+                    {
+                        "name": "salesId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "cateId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/sales?salesId={salesId}&start={start}": {
+            "get": {
+                "tags": [
+                    "Sales Promotion Client"
+                ],
+                "summary": "Get sales",
+                "operationId": "dc9ea666d577061ef30c65511b760797",
+                "parameters": [
+                    {
+                        "name": "salesId",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
         }
     }
 }

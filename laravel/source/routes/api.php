@@ -15,7 +15,6 @@ use App\Http\Controllers\Api_admin\SalePromotionController;
 use App\Http\Controllers\Api_admin\SizeController;
 use App\Http\Controllers\Api_admin\VariantionController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -66,3 +65,32 @@ Route::apiResource('/size', SizeController::class);
 
 //Routes variantion
 Route::apiResource('/variation', VariantionController::class);
+
+
+// Routes product client repository pattern
+Route::get('/products', 'App\Http\Controllers\Client_api\ProductController@index');
+Route::post('/products/filter', 'App\Http\Controllers\Client_api\ProductController@filter_products');
+Route::get('/products/detail', 'App\Http\Controllers\Client_api\ProductController@get_product');
+Route::get('/products/weekly_best', 'App\Http\Controllers\Client_api\ProductController@get_weekly_best_product');
+Route::get('/products/new_products', 'App\Http\Controllers\Client_api\ProductController@get_new_product');
+Route::get('/products/search', 'App\Http\Controllers\Client_api\ProductController@search_products');
+Route::get('/max-price', 'App\Http\Controllers\Client_api\ProductController@get_max_price');
+Route::get('/productsCollection', 'App\Http\Controllers\Client_api\ProductController@get_productsCollection');
+Route::get('/productsSales', 'App\Http\Controllers\Client_api\ProductController@get_productsSale');
+
+// Routes category client
+Route::get('/categories', 'App\Http\Controllers\Client_api\CategoryController@get_category');
+Route::get('/categories/detail', 'App\Http\Controllers\Client_api\CategoryController@get_category_detail');
+Route::get('/categories/children', 'App\Http\Controllers\Client_api\CategoryController@get_subcate');
+
+// Routes colection client
+Route::get('/collections', 'App\Http\Controllers\Client_api\CollectionController@get_collection');
+
+// Routes salespromotion client
+Route::get('/sales', 'App\Http\Controllers\Client_api\SalesPromotionController@get_sales');
+
+// Routes menu client
+Route::get('/menu', 'App\Http\Controllers\Client_api\MenuController@get_menu');
+
+// Routes banner client
+Route::get('/banner', 'App\Http\Controllers\Client_api\BannerController@get_banner');
