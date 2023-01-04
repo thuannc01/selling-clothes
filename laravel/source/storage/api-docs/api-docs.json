@@ -460,7 +460,7 @@
                                     "receiptId": {
                                         "type": "integer"
                                     },
-                                    "productId": {
+                                    "variantId": {
                                         "type": "integer"
                                     },
                                     "price": {
@@ -524,7 +524,7 @@
                                     "receiptId": {
                                         "type": "integer"
                                     },
-                                    "productId": {
+                                    "variantId": {
                                         "type": "integer"
                                     },
                                     "price": {
@@ -834,6 +834,26 @@
                 ],
                 "summary": "Get All Product",
                 "operationId": "abaab995052fab833e97e8aedd43b4c4",
+                "parameters": [
+                    {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -900,6 +920,20 @@
                                                         },
                                                         "type": "object"
                                                     }
+                                                },
+                                                "images": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string"
+                                                            },
+                                                            "deleted": {
+                                                                "type": "integer"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
                                                 }
                                             },
                                             "type": "object"
@@ -936,6 +970,86 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update Producy",
+                "operationId": "a26d322edffbecf51bc0a8c5dae55c5e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "img": {
+                                        "type": "string"
+                                    },
+                                    "categoryId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    },
+                                    "variant": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "colorId": {
+                                                    "type": "integer"
+                                                },
+                                                "thumbnail": {
+                                                    "type": "string"
+                                                },
+                                                "deleted": {
+                                                    "type": "integer"
+                                                },
+                                                "sizes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "size": {
+                                                                "type": "integer"
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer"
+                                                            },
+                                                            "deleted": {
+                                                                "type": "integer"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"

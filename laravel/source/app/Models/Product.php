@@ -11,4 +11,9 @@ class Product extends Model
     protected $table = 'product';
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'price', 'description', 'img', 'categoryId', 'deleted'];
+
+    public function Variants()
+    {
+        return $this->hasMany(Variation::class, 'productId', 'id');
+    }
 }

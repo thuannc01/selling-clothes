@@ -46,7 +46,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        return  category::where('name', 'like', '%' . trim($request->keyword) . '%')->paginate($request->pagesize);;
+        return  category::where('name', 'like', '%' . trim($request->keyword) . '%')->paginate($request->pagesize);
     }
 
     /**

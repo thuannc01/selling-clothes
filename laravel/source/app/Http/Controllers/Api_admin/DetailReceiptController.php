@@ -41,7 +41,7 @@ class DetailReceiptController extends Controller
      *           type="int",
      *         ),
      *      @OA\Property(
-     *           property="productId",
+     *           property="variantId",
      *           type="int",
      *         ),
      *       @OA\Property(
@@ -113,7 +113,7 @@ class DetailReceiptController extends Controller
      *           type="int",
      *         ),
      *      @OA\Property(
-     *           property="productId",
+     *           property="variantId",
      *           type="int",
      *         ),
      *       @OA\Property(

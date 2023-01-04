@@ -9,7 +9,7 @@ class DetailReceipt extends Model
 {
     use HasFactory;
     protected $table = 'detailreceipt';
-    protected $primaryKey = ['receiptId', 'productId'];
+    protected $primaryKey = ['receiptId', 'variantId'];
     public $incrementing = false;
     protected $fillable = ['price', 'quantity', 'deleted'];
 }

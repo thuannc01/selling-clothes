@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api_admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Size;
+use Illuminate\Support\Facades\DB;
 
 class SizeController extends Controller
 {
@@ -23,7 +24,10 @@ class SizeController extends Controller
      */
     public function index()
     {
-        return Size::all();
+        return DB::table('size')
+            ->select('size')
+            ->distinct()
+            ->get();;
     }
 
 

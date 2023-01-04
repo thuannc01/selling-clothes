@@ -11,4 +11,9 @@ class Variation extends Model
     protected $table = 'variation';
     protected $primaryKey = 'id';
     protected $fillable = ['productId', 'colorId', 'thumbnail', 'deleted'];
+
+    public function Sizes()
+    {
+        return $this->hasMany(Size::class, 'variantId', 'id');
+    }
 }
