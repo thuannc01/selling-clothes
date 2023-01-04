@@ -53,14 +53,14 @@ class ProductRepository implements ProductRepositoryInterface
 		}
 
 		if (count((array)$colors) > 0){
-			$colorStr = join(', ', (array)$colors);
-			$color_query = " and v.colorId in (" . $colors .")";
+			$colorStr = join(', ', $colors);
+			$color_query = " and v.colorId in (" . $colorStr .")";
 		} else {
 			$color_query = "";
 		}
 
 		if(count((array)$sizes) > 0){
-			$sizeStr = join(', ', (array)$sizes);
+			$sizeStr = join(', ', $sizes);
 			$size_query = " LEFT JOIN size sz ON v.id = sz.variantId AND sz.size in(". $sizeStr .")";
 		} else {
 			$size_query = "";
