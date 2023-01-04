@@ -44,15 +44,13 @@ class CategoryRepository implements CategoryRepositoryInterface
             $result = DB::select(DB::raw($query2));
             
             if(count((array)$result)!= 0){
-                $parentsId = (array)$result[0]->parentsId;
-                dd($result[0]->parentsId);
+                $parentsId = $result[0]->parentsId;
             } else {
                 $parentsId = 0;
             }
             
             $result = DB::select(DB::raw("select id, name, 'category' AS type FROM category WHERE parentsId = ".$parentsId));
         }
-
         return $result;
     }
 }
