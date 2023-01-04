@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api_admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Size;
+use App\Models\Variation;
 use GuzzleHttp\Handler\Proxy;
+use Illuminate\Support\Arr;
 
 class ProductController extends Controller
 {
@@ -27,25 +30,123 @@ class ProductController extends Controller
         return Product::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Add Producy
+     * @OA\Post(
+     *      path="/api/product",
+     *      tags={"Product"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="name",
+     *           type="string",
+     *         ),
+     *      @OA\Property(
+     *           property="price",
+     *           type="float",
+     *         ),
+     *       @OA\Property(
+     *           property="description",
+     *           type="string",
+     *         ),
+     *       @OA\Property(
+     *           property="img",
+     *           type="string",
+     *         ),
+     *       @OA\Property(
+     *           property="categoryId",
+     *           type="integer",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *      @OA\Property(
+     *          type="array",
+     *          property="variant",
+     *          @OA\Items(
+     *                  @OA\Property(
+     *                      property="colorId",
+     *                      type="int",
+     *                  ),
+     *                  @OA\Property(
+     *                      property="thumbnail",
+     *                      type="string",
+     *                  ),
+     *                  @OA\Property(
+     *                      property="deleted",
+     *                      type="int",
+     *                  ),
+     *                  @OA\Property(
+     *                      type="array",
+     *                      property="sizes",
+     *                      @OA\Items(
+     *                          @OA\Property(
+     *                              property="size",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="quantity",
+     *                              type="integer",
+     *                          ),
+     *                          @OA\Property(
+     *                              property="deleted",
+     *                              type="integer",
+     *                          )
+     *                      )
+     *                  )
+     * 
+     *              )
+     *          )
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->img = $request->img;
+        $product->categoryId = $request->categoryId;
+        $product->deleted = $request->deleted;
+
+        $product->save();
+
+        $listVariant = $request->variant;
+        foreach ($listVariant as $item) {
+            $variant = new Variation();
+            $variant->productId = $product->id;
+            $variant->colorId = $item["colorId"];
+            $variant->thumbnail = $item["thumbnail"];
+            $variant->deleted = $item["deleted"];
+
+            $variant->save();
+
+            $listSize = $item["sizes"];
+            foreach ($listSize as $s) {
+                $sizeVariant = new Size();
+                // $sizeVariant->variantId = $variant->id;
+                // $sizeVariant->size = $s["size"];
+                // $sizeVariant->quantity = $s["quantity"];
+                // $sizeVariant->deleted = $s["deleted"];
+
+                return $sizeVariant;
+                // $sizeVariant->save();
+            }
+        }
     }
 
     /**
@@ -75,16 +176,6 @@ class ProductController extends Controller
         return Product::find($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

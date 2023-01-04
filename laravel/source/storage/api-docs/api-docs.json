@@ -12,6 +12,26 @@
                 ],
                 "summary": "Get All Category",
                 "operationId": "174eaa7695390e7c34bc0ac68fa70ea0",
+                "parameters": [
+                    {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "pagesize",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -99,31 +119,6 @@
                         }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                }
-            }
-        },
-        "/api/searchCategory/{name}": {
-            "get": {
-                "tags": [
-                    "Category"
-                ],
-                "summary": "Tìm kiếm danh mục theo tên",
-                "operationId": "0851f423ac506cc8fcbd99f4b13b0b52",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "path",
-                        "description": "Tìm kiếm danh mục theo tên",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -256,6 +251,83 @@
                 ],
                 "summary": "Get All Product",
                 "operationId": "abaab995052fab833e97e8aedd43b4c4",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Add Producy",
+                "operationId": "fc80e62d133acca27198e0cacc4f4563",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "img": {
+                                        "type": "string"
+                                    },
+                                    "categoryId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    },
+                                    "variant": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "colorId": {
+                                                    "type": "integer"
+                                                },
+                                                "thumbnail": {
+                                                    "type": "string"
+                                                },
+                                                "deleted": {
+                                                    "type": "integer"
+                                                },
+                                                "sizes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "size": {
+                                                                "type": "integer"
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer"
+                                                            },
+                                                            "deleted": {
+                                                                "type": "integer"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"

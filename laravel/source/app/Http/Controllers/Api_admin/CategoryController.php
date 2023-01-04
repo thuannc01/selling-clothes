@@ -26,6 +26,15 @@ class CategoryController extends Controller
      *              type="string"
      *          ),
      *      ),
+     *      @OA\Parameter(
+     *          name="pagesize",
+     *          in="query",
+     *          required=false,
+     *          description="",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
+     *      ),
      *      tags={"Category"},
      *      @OA\Response(
      *          response=200,
@@ -36,8 +45,8 @@ class CategoryController extends Controller
      * )
      */
     public function index(Request $request)
-    {        
-        return  category::where('name', 'like', '%' . trim($request->keyword) . '%')->paginate(12);;
+    {
+        return  category::where('name', 'like', '%' . trim($request->keyword) . '%')->paginate($request->pagesize);;
     }
 
     /**
