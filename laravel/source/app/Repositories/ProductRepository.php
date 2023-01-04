@@ -61,15 +61,14 @@ class ProductRepository implements ProductRepositoryInterface
 
 		if(count((array)$sizes) > 0){
 			$sizeStr = join(', ', $sizes);
-			$size_query = " LEFT JOIN size sz ON v.id = sz.variantId AND sz.size in(". $sizeStr .")";
+			$size_query = " JOIN size sz ON v.id = sz.variantId AND sz.size in(". $sizeStr .")";
 		} else {
-			$size_query = "";
+			$size_query = " JOIN size sz on v.id = sz.variantId";
 		}
 
-		$query = "select p.id, p.name, price, p.img as img_url, sum(s.quantity) as qty, vc.color,"
+		$query = "select p.id, p.name, price, p.img as img_url, sum(sz.quantity) as qty, vc.color,"
 			. " IFNULL(discount, 0) AS discount, ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice"
 			. " FROM product p JOIN variation v ON p.id = v.productId " . $color_query.''.$size_query
-			. " JOIN size s on v.id = s.variantId"
 			. " LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id"
 			. " LEFT JOIN productsales ps ON p.id = ps.productid"
 			. " LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
