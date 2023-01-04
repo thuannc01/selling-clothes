@@ -42,7 +42,7 @@ class ProductController extends Controller
 
     /**
      * Get product filter
-     * @OA\Get(
+     * @OA\Post(
      *      path="/api/products/filter?cateId={cateId}&start={start}&colors={colors}&sizes={sizes}&sort={sort}&price={price}&limit={limit}",
      * @OA\Parameter(
      *          name="cateId",

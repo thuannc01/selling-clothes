@@ -70,7 +70,7 @@ Route::apiResource('/variation', VariantionController::class);
 
 // Routes product client repository pattern
 Route::get('/products', 'App\Http\Controllers\Client_api\ProductController@index');
-Route::get('/products/filter', 'App\Http\Controllers\Client_api\ProductController@filter_products');
+Route::post('/products/filter', 'App\Http\Controllers\Client_api\ProductController@filter_products');
 Route::get('/products/detail', 'App\Http\Controllers\Client_api\ProductController@get_product');
 Route::get('/products/weekly_best', 'App\Http\Controllers\Client_api\ProductController@get_weekly_best_product');
 Route::get('/products/new_products', 'App\Http\Controllers\Client_api\ProductController@get_new_product');

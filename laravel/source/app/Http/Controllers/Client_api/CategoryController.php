@@ -61,7 +61,7 @@ class CategoryController extends Controller
 
     public function get_category_detail(Request $request){
         $category = $this->categoryRepository->get_categories_detail($request->cateId);
-
+        
         return response($category);
     }
 

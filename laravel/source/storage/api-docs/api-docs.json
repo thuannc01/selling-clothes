@@ -1731,12 +1731,12 @@
             }
         },
         "/api/products/filter?cateId={cateId}&start={start}&colors={colors}&sizes={sizes}&sort={sort}&price={price}&limit={limit}": {
-            "get": {
+            "post": {
                 "tags": [
                     "Product Client"
                 ],
                 "summary": "Get product filter",
-                "operationId": "6ec4f7de78d6b0bcc0e5d8beed494034",
+                "operationId": "7fe651c00fe2dca8ccc55b44ba832b89",
                 "parameters": [
                     {
                         "name": "cateId",
