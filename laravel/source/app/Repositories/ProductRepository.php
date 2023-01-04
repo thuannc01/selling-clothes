@@ -67,7 +67,7 @@ class ProductRepository implements ProductRepositoryInterface
 		}
 
 		$query = "select p.id, p.name, price, p.img as img_url, sum(s.quantity) as qty, vc.color,"
-			. " IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice"
+			. " IFNULL(discount, 0) AS discount, ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice"
 			. " FROM product p JOIN variation v ON p.id = v.productId " . $color_query.''.$size_query
 			. " JOIN size s on v.id = s.variantId"
 			. " LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id"
@@ -87,7 +87,7 @@ class ProductRepository implements ProductRepositoryInterface
 	}
 
 	public function get_product($productId){
-		$query = "select p.id, p.name, p.img as img_url, price, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice, description, categoryId"
+		$query = "select p.id, p.name, p.img as img_url, price, IFNULL(discount, 0) AS discount, ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice, description, categoryId"
 		." FROM product p"
 		." JOIN variation v ON v.productId = p.id"
 		." LEFT JOIN productsales ps ON p.id = ps.productid"
@@ -126,7 +126,7 @@ class ProductRepository implements ProductRepositoryInterface
         ." p.img AS img_url, \n"
         ." vc.color, \n"
         ." IFNULL(discount, 0) AS discount, \n"
-        ." IFNULL((100 - discount) * (price / 100), 0) AS salePrice \n"
+        ." ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice \n"
 		." FROM \n"
 			." product p \n"
 				." JOIN \n"
@@ -163,7 +163,7 @@ class ProductRepository implements ProductRepositoryInterface
 	
 	public function get_new_product($limit, $cateId)
 	{
-		$query = "select p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice "
+		$query = "select p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice "
 		." FROM product p JOIN variation v ON p.id = v.productId JOIN size s on v.id = s.variantId LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id LEFT JOIN productsales ps ON p.id = ps.productid LEFT JOIN salespromotion sp ON ps.salesid = sp.id AND CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd JOIN category cate ON p.categoryId = cate.id AND (cate.parentsId = ".$cateId." OR p.categoryId = ". $cateId.")"
 		." GROUP BY p.id , name , price , discount , salePrice"
 		." ORDER BY -p.id LIMIT " .$limit;
@@ -176,7 +176,7 @@ class ProductRepository implements ProductRepositoryInterface
 	 * @return mixed
 	 */
 	public function search_products($searchStr, $limit) {
-		$query = "select p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice"
+		$query = "select p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice"
 		." FROM product p JOIN variation v ON p.id = v.productId JOIN size s on v.id = s.variantId LEFT JOIN"
 		." (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id LEFT JOIN"
 		." productsales ps ON p.id = ps.productid LEFT JOIN"
@@ -209,7 +209,7 @@ class ProductRepository implements ProductRepositoryInterface
 			$strLimit = "";
 		}
 
-		$query = "select  p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, IFNULL((100 - discount) * (price / 100), 0) AS salePrice"
+		$query = "select  p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount,ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice"
 		." FROM productcollection pc JOIN product p on pc.productId = p.id"
 		." JOIN variation v ON p.id = v.productId"
 		." JOIN size s on v.id = s.variantId"

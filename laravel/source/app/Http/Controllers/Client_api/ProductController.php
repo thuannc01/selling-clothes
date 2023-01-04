@@ -39,68 +39,48 @@ class ProductController extends Controller
             ]
         );
     }
-
-    /**
+    
+     /**
      * Get product filter
      * @OA\Post(
-     *      path="/api/products/filter?cateId={cateId}&start={start}&colors={colors}&sizes={sizes}&sort={sort}&price={price}&limit={limit}",
-     * @OA\Parameter(
-     *          name="cateId",
-     *          in="path",
-     *          required=false,
-     *          @OA\Schema(
-     *              type="int"
-     *          ),
-     *     ),
-     * @OA\Parameter(
-     *          name="start",
-     *          in="path",
-     *          required=false,
-     *          @OA\Schema(
-     *              type="int"
-     *          ),
-     *     ),
-     * @OA\Parameter(
-     *          name="colors",
-     *          in="path",
-     *          required=false,
-     *          @OA\Schema(
-     *              type="arr"
-     *          ),
-     *     ),
-     * @OA\Parameter(
-     *          name="sizes",
-     *          in="path",
-     *          required=false,
-     *          @OA\Schema(
-     *              type="arr"
-     *          ),
-     *     ),
-     * @OA\Parameter(
-     *          name="sort",
-     *          in="path",
-     *          required=false,
-     *          @OA\Schema(
-     *              type="string"
-     *          ),
-     *     ),
-     * @OA\Parameter(
-     *          name="price",
-     *          in="path",
-     *          required=false,
-     *          @OA\Schema(
-     *              type="arr"
-     *          ),
-     *     ),
-     * @OA\Parameter(
-     *          name="limit",
-     *          in="path",
-     *          required=false,
-     *          @OA\Schema(
-     *              type="int"
-     *          ),
-     *     ),
+     *      path="/api/products/filter",
      *      tags={"Product Client"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="cateId",
+     *           type="int",
+     *         ),
+     *        @OA\Property(
+     *           property="start",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="colors",
+     *           type="arr",
+     *         ),
+     *       @OA\Property(
+     *           property="sizes",
+     *           type="arr",
+     *         ),
+     *       @OA\Property(
+     *           property="sort",
+     *           type="string",
+     *         ),
+     * *       @OA\Property(
+     *           property="price",
+     *           type="arr",
+     *         ),
+     *       @OA\Property(
+     *           property="limit",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -108,8 +88,8 @@ class ProductController extends Controller
      *     @OA\PathItem (
      *     ),
      * )
-     */    
-    
+     */
+
     public function filter_products(Request $request){
         try{
             $products = $this->productRepository->product_filter($request->cateId, $request->start, $request->colors, 

@@ -1730,71 +1730,46 @@
                 }
             }
         },
-        "/api/products/filter?cateId={cateId}&start={start}&colors={colors}&sizes={sizes}&sort={sort}&price={price}&limit={limit}": {
+        "/api/products/filter": {
             "post": {
                 "tags": [
                     "Product Client"
                 ],
                 "summary": "Get product filter",
-                "operationId": "7fe651c00fe2dca8ccc55b44ba832b89",
-                "parameters": [
-                    {
-                        "name": "cateId",
-                        "in": "path",
-                        "required": false,
-                        "schema": {
-                            "type": "int"
-                        }
-                    },
-                    {
-                        "name": "start",
-                        "in": "path",
-                        "required": false,
-                        "schema": {
-                            "type": "int"
-                        }
-                    },
-                    {
-                        "name": "colors",
-                        "in": "path",
-                        "required": false,
-                        "schema": {
-                            "type": "arr"
-                        }
-                    },
-                    {
-                        "name": "sizes",
-                        "in": "path",
-                        "required": false,
-                        "schema": {
-                            "type": "arr"
-                        }
-                    },
-                    {
-                        "name": "sort",
-                        "in": "path",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "price",
-                        "in": "path",
-                        "required": false,
-                        "schema": {
-                            "type": "arr"
-                        }
-                    },
-                    {
-                        "name": "limit",
-                        "in": "path",
-                        "required": false,
-                        "schema": {
-                            "type": "int"
+                "operationId": "467ad3a71a8482ec3685f21c24a82c5d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "cateId": {
+                                        "type": "integer"
+                                    },
+                                    "start": {
+                                        "type": "integer"
+                                    },
+                                    "colors": {
+                                        "type": "arr"
+                                    },
+                                    "sizes": {
+                                        "type": "arr"
+                                    },
+                                    "sort": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "arr"
+                                    },
+                                    "limit": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation"

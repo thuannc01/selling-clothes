@@ -31,22 +31,26 @@ class CategoryRepository implements CategoryRepositoryInterface
         if($result == null){
             return ;
         }
-        return $result;
+        return (array)$result[0];
     }
 
     public function get_subcate($parentsId){
         $query = "select id, name, 'category' AS type FROM category WHERE parentsId = ".$parentsId;
 
         $result = (array)DB::select(DB::raw($query));
+
         if(count($result) == 0){
             $query2 = "select parentsId from category where id = " . $parentsId;
-            $result = (array)DB::select(DB::raw($query2));
-            if(isset($result)){
-                $parentsId = $result[0]['parentsId'];
+            $result = DB::select(DB::raw($query2));
+            
+            if(count((array)$result)!= 0){
+                $parentsId = (array)$result[0]->parentsId;
+                dd($result[0]->parentsId);
             } else {
                 $parentsId = 0;
             }
-            $result = (array)DB::select(DB::raw("select id, name 'category' AS type FROM category WHERE parentsId = ".$parentsId));
+            
+            $result = DB::select(DB::raw("select id, name, 'category' AS type FROM category WHERE parentsId = ".$parentsId));
         }
 
         return $result;
