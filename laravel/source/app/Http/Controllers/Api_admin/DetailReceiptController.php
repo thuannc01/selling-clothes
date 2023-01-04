@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api_admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DetailReceipt;
-use App\Models\Receipt;
 
 class DetailReceiptController extends Controller
 {
@@ -24,72 +23,158 @@ class DetailReceiptController extends Controller
      */
     public function index()
     {
-        return Receipt::all();
+        return DetailReceipt::all();
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Add DetailReceipt
+     * @OA\Post(
+     *      path="/api/detailreceipt",
+     *      tags={"DetailReceipt"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="receiptId",
+     *           type="int",
+     *         ),
+     *      @OA\Property(
+     *           property="productId",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="price",
+     *           type="double",
+     *         ),
+     *       @OA\Property(
+     *           property="quantity",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        return DetailReceipt::create($request->all());
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Get DetailReceipt
+     * @OA\Get(
+     *      path="/api/detailreceipt/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"DetailReceipt"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function show($id)
+    public function show(DetailReceipt $detailReceipt)
     {
-        //
+        return $detailReceipt;
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update DetailReceipt
+     * @OA\Put(
+     *      path="/api/detailreceipt/{id}",
+     *      tags={"DetailReceipt"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="receiptId",
+     *           type="int",
+     *         ),
+     *      @OA\Property(
+     *           property="productId",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="price",
+     *           type="double",
+     *         ),
+     *       @OA\Property(
+     *           property="quantity",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function edit($id)
+    public function update(Request $request, $detailReceipt)
     {
-        //
+        $detailReceipt->update($request->all());
+        return $detailReceipt;
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Delete DetailReceipt
+     * @OA\Delete(
+     *      path="/api/detailreceipt/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"DetailReceipt"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function destroy($id)
     {
-        //
+        $detailReceipt = DetailReceipt::find($id);
+        $detailReceipt->deleted = 1;
+        $rs = $detailReceipt->save();
+        if ($rs) {
+            return "200";
+        } else {
+            return "500";
+        }
     }
 }

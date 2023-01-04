@@ -10,5 +10,5 @@ class Image extends Model
     use HasFactory;
     protected $table = 'image';
     protected $primaryKey = 'id';
-    protected $fillable = ['url', 'varianId', 'deleted'];
+    protected $fillable = ['url', 'variantId', 'deleted'];
 }

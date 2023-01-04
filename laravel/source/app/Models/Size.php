@@ -10,5 +10,6 @@ class Size extends Model
     use HasFactory;
     protected $table = 'size';
     protected $primaryKey = ['variantId', 'size'];
+    public $incrementing = false;
     protected $fillable = ['quantity', 'deleted'];
 }

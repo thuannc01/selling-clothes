@@ -138,13 +138,12 @@ class ProductController extends Controller
             $listSize = $item["sizes"];
             foreach ($listSize as $s) {
                 $sizeVariant = new Size();
-                // $sizeVariant->variantId = $variant->id;
-                // $sizeVariant->size = $s["size"];
-                // $sizeVariant->quantity = $s["quantity"];
-                // $sizeVariant->deleted = $s["deleted"];
+                $sizeVariant->variantId = $variant->id;
+                $sizeVariant->size = $s["size"];
+                $sizeVariant->quantity = $s["quantity"];
+                $sizeVariant->deleted = $s["deleted"];
 
-                return $sizeVariant;
-                // $sizeVariant->save();
+                $sizeVariant->save();
             }
         }
     }

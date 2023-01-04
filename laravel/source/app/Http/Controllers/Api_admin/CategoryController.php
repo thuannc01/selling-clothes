@@ -129,7 +129,7 @@ class CategoryController extends Controller
     /**
      * Update Category
      * @OA\Put(
-     *      path="/api/category",
+     *      path="/api/category/{id}",
      *      tags={"Category"},
      *   @OA\RequestBody(
      *     required=true,
@@ -138,7 +138,7 @@ class CategoryController extends Controller
      *       @OA\Schema(
      *         @OA\Property(
      *           property="id",
-     *           type="string",
+     *           type="int",
      *         ),
      *         @OA\Property(
      *           property="name",
@@ -182,7 +182,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Get Category
+     * Delete Category
      * @OA\Delete(
      *      path="/api/category/{id}",
      *      @OA\Parameter(
@@ -205,7 +205,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        // $category->delete();
         $category = category::find($id);
         $category->deleted = 1;
         $rs = $category->save();

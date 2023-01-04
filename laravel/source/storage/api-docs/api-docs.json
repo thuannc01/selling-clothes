@@ -38,51 +38,6 @@
                     }
                 }
             },
-            "put": {
-                "tags": [
-                    "Category"
-                ],
-                "summary": "Update Category",
-                "operationId": "339707a75c522c2bbfa5c43c4542ce19",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "id": {
-                                        "type": "string"
-                                    },
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "visible": {
-                                        "type": "integer"
-                                    },
-                                    "text": {
-                                        "type": "string"
-                                    },
-                                    "img": {
-                                        "type": "string"
-                                    },
-                                    "parentsId": {
-                                        "type": "integer"
-                                    },
-                                    "deleted": {
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "Category"
@@ -150,11 +105,56 @@
                     }
                 }
             },
+            "put": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Update Category",
+                "operationId": "a592d77165948f82c9e0eb551448bf54",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "visible": {
+                                        "type": "integer"
+                                    },
+                                    "text": {
+                                        "type": "string"
+                                    },
+                                    "img": {
+                                        "type": "string"
+                                    },
+                                    "parentsId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "Category"
                 ],
-                "summary": "Get Category",
+                "summary": "Delete Category",
                 "operationId": "d39845ee81a52b82283e3bdebaecec07",
                 "parameters": [
                     {
@@ -186,6 +186,133 @@
                         "description": "Successful operation"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Collection"
+                ],
+                "summary": "Add Collection",
+                "operationId": "fbb0ab182f3df78e4dc8706ec7371067",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "visible": {
+                                        "type": "integer"
+                                    },
+                                    "mobileBanner": {
+                                        "type": "string"
+                                    },
+                                    "pcBanner": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/collection/{id}": {
+            "get": {
+                "tags": [
+                    "Collection"
+                ],
+                "summary": "Get Collection",
+                "operationId": "1e1b2adadfa149ffdd80d620be43926b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Collection"
+                ],
+                "summary": "Update Collection",
+                "operationId": "39cb17e2de59d134601bcb18a3b12a70",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "visible": {
+                                        "type": "integer"
+                                    },
+                                    "mobileBanner": {
+                                        "type": "string"
+                                    },
+                                    "pcBanner": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Collection"
+                ],
+                "summary": "Delete Collection",
+                "operationId": "6bff379db59bea13f4844873ac60ffbb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
             }
         },
         "/api/color": {
@@ -195,6 +322,109 @@
                 ],
                 "summary": "Get All Color",
                 "operationId": "c5c78438dd88d26150442c9b275e0356",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Color"
+                ],
+                "summary": "Add Category",
+                "operationId": "ba095fa7acd4e695631e7c0752cada95",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/color/{id}": {
+            "get": {
+                "tags": [
+                    "Color"
+                ],
+                "summary": "Get Color",
+                "operationId": "f7a5cbf38867eeaaae7833223fc50157",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Color"
+                ],
+                "summary": "Update Category",
+                "operationId": "ea0c7d63dc1a77bd488ce7611920866c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Color"
+                ],
+                "summary": "Delete Color",
+                "operationId": "2b35f197994112aa896e599d1ee4dda4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -214,6 +444,132 @@
                         "description": "Successful operation"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "DetailReceipt"
+                ],
+                "summary": "Add DetailReceipt",
+                "operationId": "c23ab12a2594af274abac70c9eb5f6b5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "receiptId": {
+                                        "type": "integer"
+                                    },
+                                    "productId": {
+                                        "type": "integer"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "quantity": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/detailreceipt/{id}": {
+            "get": {
+                "tags": [
+                    "DetailReceipt"
+                ],
+                "summary": "Get DetailReceipt",
+                "operationId": "a0eba3df76bb0c5ee1c1afc4e7be26ea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "DetailReceipt"
+                ],
+                "summary": "Update DetailReceipt",
+                "operationId": "a8740ccd41ad6cb05c9ade3d7323ef09",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "receiptId": {
+                                        "type": "integer"
+                                    },
+                                    "productId": {
+                                        "type": "integer"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "quantity": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "DetailReceipt"
+                ],
+                "summary": "Delete DetailReceipt",
+                "operationId": "08231d79b17c1b71d19a1aa0c63b8738",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
             }
         },
         "/api/image": {
@@ -228,6 +584,121 @@
                         "description": "Successful operation"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Image"
+                ],
+                "summary": "Add Image",
+                "operationId": "eee9961c7d41fa294a590e08fd5e9296",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "url": {
+                                        "type": "string"
+                                    },
+                                    "variantId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/image/{id}": {
+            "get": {
+                "tags": [
+                    "Image"
+                ],
+                "summary": "Get Image",
+                "operationId": "c343f5b4d8a1a540c30568616b6ffd4d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Image"
+                ],
+                "summary": "Update Image",
+                "operationId": "8762af91bafd1a93ef3d7c0b1cd8d75d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    },
+                                    "variantId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Image"
+                ],
+                "summary": "Delete Image",
+                "operationId": "405d5dc41ba6f72ffc5ed8fcf33bf9d6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
             }
         },
         "/api/productcollection": {
@@ -237,6 +708,118 @@
                 ],
                 "summary": "Get All ProductCollection",
                 "operationId": "12513af85c21b4dd765f2885c6d7c2b9",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ProductCollection"
+                ],
+                "summary": "Add ProductCollection",
+                "operationId": "3fab329f5595daae6c859c8f7dd18cb3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "productId": {
+                                        "type": "integer"
+                                    },
+                                    "collectionId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/productcollection/{id}": {
+            "get": {
+                "tags": [
+                    "ProductCollection"
+                ],
+                "summary": "Get ProductCollection",
+                "operationId": "7810c761033149a9193516e0ae40f1b5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ProductCollection"
+                ],
+                "summary": "Update ProductCollection",
+                "operationId": "d2ef057dc5d01bbfc38b3bfc648ea454",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "productId": {
+                                        "type": "integer"
+                                    },
+                                    "collectionId": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ProductCollection"
+                ],
+                "summary": "Delete ProductCollection",
+                "operationId": "33cc7d8c0e45e0c7b21ce2f27e9ebbb9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -394,6 +977,118 @@
                         "description": "Successful operation"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "ProductSale"
+                ],
+                "summary": "Add ProductSale",
+                "operationId": "fb0ae373fd8a6e89e23931b3cac36995",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "productid": {
+                                        "type": "integer"
+                                    },
+                                    "saleid": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/productsale/{id}": {
+            "get": {
+                "tags": [
+                    "ProductSale"
+                ],
+                "summary": "Get ProductSale",
+                "operationId": "e85bc0fe2d202fd3c063a4e9b4e00ee9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ProductSale"
+                ],
+                "summary": "Update ProductSale",
+                "operationId": "2a3e11181e6a8ba4b6f93268fc492080",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "productid": {
+                                        "type": "integer"
+                                    },
+                                    "saleid": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ProductSale"
+                ],
+                "summary": "Delete ProductSale",
+                "operationId": "1d8ed2c591bbebd5ecad3d1bc74a6259",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
             }
         },
         "/api/receipt": {
@@ -408,15 +1103,295 @@
                         "description": "Successful operation"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Receipt"
+                ],
+                "summary": "Add Receipt",
+                "operationId": "ba87ba0047e1b80c64588f5b9446f820",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "timeOrder": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "paymentTime": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "paymentMethod": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
             }
         },
-        "/api/salePromotion": {
+        "/api/receipt/{id}": {
+            "get": {
+                "tags": [
+                    "Receipt"
+                ],
+                "summary": "Get Receipt",
+                "operationId": "c2c4109534951f8ea9ff15f6fe7c99a5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Receipt"
+                ],
+                "summary": "Update Receipt",
+                "operationId": "1f5e86903246fe63c9a5fa1d37d04f33",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "timeOrder": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "paymentTime": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "paymentMethod": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Receipt"
+                ],
+                "summary": "Delete Receipt",
+                "operationId": "ebe0ea885826f280cfb46cc6f7cba0e0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/salepromotion": {
             "get": {
                 "tags": [
                     "SalePromotion"
                 ],
                 "summary": "Get All SalePromotion",
-                "operationId": "f0a7e74ca8e59270f2e936897d6d199a",
+                "operationId": "9ce58c722dd8c4f225c63cac12620c71",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SalePromotion"
+                ],
+                "summary": "Add SalePromotion",
+                "operationId": "b3a78726ba830f3579ff0eb67fd7e762",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "discount": {
+                                        "type": "integer"
+                                    },
+                                    "timeStart": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "timeEnd": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "visible": {
+                                        "type": "integer"
+                                    },
+                                    "mobileBanner": {
+                                        "type": "string"
+                                    },
+                                    "pcBanner": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/salepromotion/{id}": {
+            "get": {
+                "tags": [
+                    "SalePromotion"
+                ],
+                "summary": "Get SalePromotion",
+                "operationId": "5162baa99635082cdcd3d6de52d8e712",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SalePromotion"
+                ],
+                "summary": "Update SalePromotion",
+                "operationId": "0e2549849744b8ce352ccd0e47bb02ee",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "discount": {
+                                        "type": "integer"
+                                    },
+                                    "timeStart": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "timeEnd": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "visible": {
+                                        "type": "integer"
+                                    },
+                                    "mobileBanner": {
+                                        "type": "string"
+                                    },
+                                    "pcBanner": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SalePromotion"
+                ],
+                "summary": "Delete SalePromotion",
+                "operationId": "e5bd0f0e726ed17ada4ec4aaa746e6d1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -436,6 +1411,124 @@
                         "description": "Successful operation"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Size"
+                ],
+                "summary": "Add Size",
+                "operationId": "21c1192edd6b089d98b149119a079eea",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "variantId": {
+                                        "type": "integer"
+                                    },
+                                    "size": {
+                                        "type": "integer"
+                                    },
+                                    "quantity": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/size/{id}": {
+            "get": {
+                "tags": [
+                    "Size"
+                ],
+                "summary": "Get Size",
+                "operationId": "5754368bc14669a6b09abfb6f71d856a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Size"
+                ],
+                "summary": "Update Size",
+                "operationId": "96ae4a38b4d2e4fc2dcd154dda0242df",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "variantId": {
+                                        "type": "integer"
+                                    },
+                                    "size": {
+                                        "type": "integer"
+                                    },
+                                    "quantity": {
+                                        "type": "integer"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Size"
+                ],
+                "summary": "Delete Size",
+                "operationId": "9203b09e4f108c3bbff22c2f6424730b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
             }
         },
         "/api/variation": {
@@ -445,6 +1538,127 @@
                 ],
                 "summary": "Get All Variation",
                 "operationId": "f434383864b7190beb8c713b624ce3bd",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Variation"
+                ],
+                "summary": "Add Variation",
+                "operationId": "940051dd2e93bba10388ac6b930afc50",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "productId": {
+                                        "type": "integer"
+                                    },
+                                    "colorId": {
+                                        "type": "integer"
+                                    },
+                                    "thumbnail": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/variation/{id}": {
+            "get": {
+                "tags": [
+                    "Variation"
+                ],
+                "summary": "Get Variation",
+                "operationId": "938e94681ebb5fb6ca60e95b7477f253",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Variation"
+                ],
+                "summary": "Update Variation",
+                "operationId": "d03e9be05c9df9dcd8f25082106d875a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "productId": {
+                                        "type": "integer"
+                                    },
+                                    "colorId": {
+                                        "type": "integer"
+                                    },
+                                    "thumbnail": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Variation"
+                ],
+                "summary": "Delete Variation",
+                "operationId": "b26b590115f62f40ff493100c8eb7bb4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"

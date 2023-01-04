@@ -27,68 +27,142 @@ class ImageController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Add Image
+     * @OA\Post(
+     *      path="/api/image",
+     *      tags={"Image"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="url",
+     *           type="string",
+     *         ),
+     *      @OA\Property(
+     *           property="variantId",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        return Image::create($request->all());
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Get Image
+     * @OA\Get(
+     *      path="/api/image/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Image"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function show($id)
+    public function show(Image $image)
     {
-        //
+        return $image;
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update Image
+     * @OA\Put(
+     *      path="/api/image/{id}",
+     *      tags={"Image"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="id",
+     *           type="int",
+     *         ),
+     *         @OA\Property(
+     *           property="url",
+     *           type="string",
+     *         ),
+     *      @OA\Property(
+     *           property="variantId",
+     *           type="int",
+     *         ),
+     *       @OA\Property(
+     *           property="deleted",
+     *           type="int",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
-    public function edit($id)
+    public function update(Request $request, $image)
     {
-        //
+        $image->update($request->all());
+        return $image;
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Delete Image
+     * @OA\Delete(
+     *      path="/api/image/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=false,
+     *          @OA\Schema(
+     *              type="int"
+     *          ),
+     *     ),
+     *      tags={"Image"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *     @OA\PathItem (
+     *     ),
+     * )
      */
     public function destroy($id)
     {
-        //
+        $image = category::find($id);
+        $image->deleted = 1;
+        $rs = $image->save();
+        if ($rs) {
+            return "200";
+        } else {
+            return "500";
+        }
     }
 }
