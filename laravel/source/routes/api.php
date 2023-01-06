@@ -14,6 +14,7 @@ use App\Http\Controllers\Api_admin\ReceiptController;
 use App\Http\Controllers\Api_admin\SalePromotionController;
 use App\Http\Controllers\Api_admin\SizeController;
 use App\Http\Controllers\Api_admin\VariantionController;
+use App\Http\Controllers\Client_api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,3 +96,14 @@ Route::get('/menu', 'App\Http\Controllers\Client_api\MenuController@get_menu');
 
 // Routes banner client
 Route::get('/banner', 'App\Http\Controllers\Client_api\BannerController@get_banner');
+
+// Register
+Route::post('/register', [AuthController::class, 'register']);
+
+// Login
+Route::post('/login', [AuthController::class, 'login']);
+
+// Protected routes
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
