@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AuthController extends Controller
 {
@@ -66,4 +67,15 @@ class AuthController extends Controller
 
         return response($response, 201);
     }
+
+    public function refresh(Request $request): JsonResponse
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'user' => $request->user(),
+            'token' => $request->user()->createToken('api')->plainTextToken,
+        ]);
+    }
+
 }
