@@ -127,14 +127,14 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update Category
+     * Add Category
      * @OA\Put(
      *      path="/api/category/{id}",
      *      tags={"Category"},
      *   @OA\RequestBody(
      *     required=true,
      *     @OA\MediaType(
-     *       mediaType="multipart/form-data",
+     *       mediaType="application/json",
      *       @OA\Schema(
      *         @OA\Property(
      *           property="id",
@@ -175,10 +175,16 @@ class CategoryController extends Controller
      *     ),
      * )
      */
-    public function update(CategoryRequest $request, category $category)
+    public function update(Request $request)
     {
-        return $category->update($request->all());
-        return $category;
+        $category = category::find($request->id);
+        $category->name = $request->name;
+        $category->visible = $request->visible;
+        $category->text = $request->text;
+        $category->img = $request->img;
+        $category->parentsId = $request->parentsId;
+        $category->deleted = $request->deleted;
+        return $category->save();
     }
 
     /**

@@ -109,12 +109,12 @@
                 "tags": [
                     "Category"
                 ],
-                "summary": "Update Category",
+                "summary": "Add Category",
                 "operationId": "a592d77165948f82c9e0eb551448bf54",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
                                 "properties": {
                                     "id": {
