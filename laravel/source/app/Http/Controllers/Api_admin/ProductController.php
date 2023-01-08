@@ -233,10 +233,14 @@ class ProductController extends Controller
             ->where('product.id', '=', $id)->first();
 
         $variants = DB::table('variation')
-            ->where('variation.productId', '=', $product->id)->get();
+            ->join('color', 'variation.colorId', '=', 'color.Id')
+            ->where('variation.productId', '=', $product->id)
+            ->select('variation.*', 'color.name AS colorName')->get();
         foreach ($variants as $variant) {
             $variant->Sizes = DB::table('size')
                 ->where('size.variantId', '=', $variant->id)->get();
+            $variant->Images = DB::table('image')
+                ->where('image.variantId', '=', $variant->id)->get();
         }
         $product->Variants = $variants;
         return $product;

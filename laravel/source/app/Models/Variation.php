@@ -16,4 +16,9 @@ class Variation extends Model
     {
         return $this->hasMany(Size::class, 'variantId', 'id');
     }
+
+    public function Images()
+    {
+        return $this->hasMany(Image::class, 'variantId', 'id');
+    }
 }
