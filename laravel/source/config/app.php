@@ -176,7 +176,12 @@ return [
         App\Providers\RouteServiceProvider::class,
         L5Swagger\L5SwaggerServiceProvider::class,
 
-        App\Providers\RepositoryServiceProvider::class
+        App\Providers\RepositoryServiceProvider::class,
+
+
+
+        // Other service providers…
+        Laravel\Socialite\SocialiteServiceProvider::class
     ],
 
     /*
@@ -232,6 +237,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // Other aliases…
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

@@ -15,6 +15,7 @@ use App\Http\Controllers\Api_admin\SalePromotionController;
 use App\Http\Controllers\Api_admin\SizeController;
 use App\Http\Controllers\Api_admin\VariantionController;
 use App\Http\Controllers\Client_api\AuthController;
+use App\Http\Controllers\Client_api\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,3 +108,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/refresh', [AuthController::class, 'refresh']);
 });
+
+// login with google
+Route::post('/get-google-sign-in-url', [GoogleController::class, 'getGoogleSignInUrl']);
+Route::get('/callback', [GoogleController::class, 'loginCallback']); 
