@@ -74,7 +74,7 @@ class ProductRepository implements ProductRepositoryInterface
 			. " LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
 			. " and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
 			. " JOIN category cate ON p.categoryId = cate.id AND (cate.parentsId = " . $cateId . " OR p.categoryId = " . $cateId . ")"
-			. " WHERE " . $min_query.''.$max_query
+			. " WHERE p.deleted != 1 AND " . $min_query.''.$max_query
 			. " GROUP BY p.id , name , price , discount , salePrice"
 			. " ORDER BY " . $sort_param . ",-p.id ";
 		
@@ -86,34 +86,37 @@ class ProductRepository implements ProductRepositoryInterface
 	}
 
 	public function get_product($productId){
-		$query = "select p.id, p.name, p.img as img_url, price, IFNULL(discount, 0) AS discount, ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice, description, categoryId"
-		." FROM product p"
-		." JOIN variation v ON v.productId = p.id"
-		." LEFT JOIN productsales ps ON p.id = ps.productid"
-		." LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
-		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
-		." WHERE p.id = " .$productId;
+		if (Product::find($productId)->deleted != 1){
+			$query = "select p.id, p.name, p.img as img_url, price, IFNULL(discount, 0) AS discount, ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice, description, categoryId"
+			." FROM product p"
+			." JOIN variation v ON v.productId = p.id"
+			." LEFT JOIN productsales ps ON p.id = ps.productid"
+			." LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
+			." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
+			." WHERE p.id = " .$productId;
 
-		$result = DB::select(DB::raw($query));
-		if(isset($result)){
-			$results = (array) $result[0];
+			$result = DB::select(DB::raw($query));
+			if(empty($result)){
+				$results = (array) $result[0];
+			}
+
+			$query = "select v.id, v.thumbnail, c.name, SUM(s.quantity) AS qty"
+			." FROM variation v JOIN color c ON c.id = v.colorId JOIN size s ON s.variantId = v.id"
+			." WHERE v.productId = ". $productId ." GROUP BY v.id";
+
+			$results['variants'] = DB::select(DB::raw($query));
+
+			foreach ($results['variants'] as $value){
+				$query = "select size, quantity from size where variantId = " . $value->id;
+				$value->sizes = DB::select(DB::raw($query));
+
+				$query = "select id, url from image where variantId = ". $value->id;
+				$value->images = DB::select(DB::raw($query));
+			}
+
+			return $results;
 		}
-
-		$query = "select v.id, v.thumbnail, c.name, SUM(s.quantity) AS qty"
-		." FROM variation v JOIN color c ON c.id = v.colorId JOIN size s ON s.variantId = v.id"
-		." WHERE v.productId = ". $productId ." GROUP BY v.id";
-
-		$results['variants'] = DB::select(DB::raw($query));
-
-		foreach ($results['variants'] as $value){
-			$query = "select size, quantity from size where variantId = " . $value->id;
-			$value->sizes = DB::select(DB::raw($query));
-
-			$query = "select id, url from image where variantId = ". $value->id;
-			$value->images = DB::select(DB::raw($query));
-		}
-
-		return $results;
+		return [];
 	}
 
 	public function get_weekly_best_product($limit, $cateId){
@@ -164,6 +167,7 @@ class ProductRepository implements ProductRepositoryInterface
 	{
 		$query = "select p.id, p.name, price, sum(s.quantity) as qty, p.img as img_url, vc.color, IFNULL(discount, 0) AS discount, ROUND(IFNULL((100 - discount) * (price / 100), 0),0) AS salePrice "
 		." FROM product p JOIN variation v ON p.id = v.productId JOIN size s on v.id = s.variantId LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc ON vc.productId = p.id LEFT JOIN productsales ps ON p.id = ps.productid LEFT JOIN salespromotion sp ON ps.salesid = sp.id AND CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd JOIN category cate ON p.categoryId = cate.id AND (cate.parentsId = ".$cateId." OR p.categoryId = ". $cateId.")"
+		."Where p.deleted != 1"
 		." GROUP BY p.id , name , price , discount , salePrice"
 		." ORDER BY -p.id LIMIT " .$limit;
 
@@ -181,7 +185,7 @@ class ProductRepository implements ProductRepositoryInterface
 		." productsales ps ON p.id = ps.productid LEFT JOIN"
 		." salespromotion sp ON ps.salesid = sp.id"
 		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
-		." WHERE p.name like '%". $searchStr ."%'"
+		." WHERE p.deleted != 1 AND p.name like '%". $searchStr ."%'"
 		." GROUP BY p.id , name , price , discount , salePrice"
 		." ORDER BY -p.id";
 
@@ -193,7 +197,7 @@ class ProductRepository implements ProductRepositoryInterface
 	}
 
 	public function get_max_price(){
-		$query = "select max(price) as maxPrice from product";
+		$query = "select max(price) as maxPrice from product p where p.deleted != 1";
 
 		$result = array();
 		$result = DB::select(DB::raw($query));
@@ -218,7 +222,7 @@ class ProductRepository implements ProductRepositoryInterface
 		." LEFT JOIN productsales ps ON p.id = ps.productid"
 		." LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
 		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd"
-		." WHERE pc.collectionId = ".$collectionId
+		." WHERE p.deleted != 1 AND pc.collectionId = ".$collectionId
 		." GROUP BY p.id , name , price , discount , salePrice"
 		." ORDER BY -p.id ".$strLimit;
 
@@ -255,7 +259,7 @@ class ProductRepository implements ProductRepositoryInterface
 		." LEFT JOIN (select vr.productId, COUNT(vr.id) as color from variation vr group by vr.productId) as vc"
 		." ON vc.productId = p.id"
 		." LEFT JOIN salespromotion sp ON ps.salesid = sp.id"
-		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd ". $strCate ." WHERE ps.salesid = ".$salesId
+		." and CURRENT_TIMESTAMP() BETWEEN sp.timeStart AND sp.timeEnd ". $strCate ." WHERE p.deleted != 1 AND ps.salesid = ".$salesId
 		." GROUP BY p.id , name , price , discount , salePrice"
 		." ORDER BY -p.id ".$strLimit;
 		
