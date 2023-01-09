@@ -90,7 +90,7 @@ class ProductController extends Controller
      * )
      */
 
-    public function filter_products(Request $request){
+     public function filter_products(Request $request){
         try{
             $products = $this->productRepository->product_filter($request->cateId, $request->start, $request->colors, 
             $request->sizes, $request->sort, $request->price, $request->limit);
