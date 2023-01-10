@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client_api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use stdClass;
 use TheSeer\Tokenizer\Exception;
 
 class ProductController extends Controller
@@ -133,7 +134,10 @@ class ProductController extends Controller
     public function get_product(Request $request){
         try{
             $products = $this->productRepository->get_product($request->productId);
-            return response($products);
+            if(count((array)$products) > 0){
+                return response($products);
+            }
+            return response()->json(new stdClass());
         }
         catch(Exception $e){
             return response([

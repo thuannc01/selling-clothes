@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use OpenApi\Annotations\Response;
+use stdClass;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -96,7 +98,7 @@ class ProductRepository implements ProductRepositoryInterface
 			." WHERE p.id = " .$productId;
 
 			$result = DB::select(DB::raw($query));
-			if(empty($result)){
+			if(isset($result)){
 				$results = (array) $result[0];
 			}
 
