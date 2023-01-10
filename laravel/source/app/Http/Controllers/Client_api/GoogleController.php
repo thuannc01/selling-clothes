@@ -33,16 +33,23 @@ class GoogleController extends Controller
 
             $user = User::where('email', $googleUser->email)->first();
             if ($user) {
-                throw new \Exception(__('google sign in email existed'));
+                // throw new \Exception(__('google sign in email existed'));
+                $token = $user->createToken('myapptoken')->plainTextToken;
+                return response()->json([
+                    'status' => __('google sign in successful'),
+                    'data' => $user,
+                    'token' => $token
+                ], Response::HTTP_CREATED);
+            } else {
+                $user = User::create(
+                    [
+                        'email' => $googleUser->email,
+                        'name' => $googleUser->name,
+                        'google_id' => $googleUser->id,
+                        'password' => bcrypt('123'),
+                    ]
+                );
             }
-            $user = User::create(
-                [
-                    'email' => $googleUser->email,
-                    'name' => $googleUser->name,
-                    'google_id'=> $googleUser->id,
-                    'password'=> bcrypt('123'),
-                ]
-            );
 
             $token = $user->createToken('myapptoken')->plainTextToken;
 
